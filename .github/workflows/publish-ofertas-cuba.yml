@@ -1,0 +1,25 @@
+name: Publish to ofertas-cuba
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ofertas-cuba-main
+          fetch-depth: 0
+
+      - name: Push to PalmApps/ofertas-cuba
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add target "https://x-access-token:${GH_TOKEN}@github.com/PalmApps/ofertas-cuba.git"
+          git push target HEAD:main --force
