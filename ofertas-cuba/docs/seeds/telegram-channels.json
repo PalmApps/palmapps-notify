@@ -1,0 +1,22 @@
+[
+  {
+    "username": "palmapps",
+    "name": "PalmApps foro (referencia)",
+    "provinceId": null,
+    "type": "channel",
+    "notes": "No es grupo de ventas; ejemplo de formato"
+  },
+  {
+    "username": "ejemplo_compraventa_cuba",
+    "name": "Compra venta Cuba (ejemplo)",
+    "provinceId": null,
+    "type": "channel",
+    "notes": "Reemplazar con canales/grupos publicos reales"
+  },
+  {
+    "username": "ejemplo_habana_ventas",
+    "name": "Ventas La Habana (ejemplo)",
+    "provinceId": "hab",
+    "type": "group"
+  }
+]

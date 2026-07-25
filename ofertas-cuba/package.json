@@ -1,0 +1,20 @@
+{
+  "name": "ofertas-cuba",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Comparador comunitario de compra y venta en Cuba (PalmApps)",
+  "scripts": {
+    "dev": "pnpm --filter @ofertas-cuba/web dev",
+    "dev:bot": "pnpm --filter @ofertas-cuba/bot dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "scrape:facebook": "pnpm --filter @ofertas-cuba/scraper scrape:facebook",
+    "scrape:telegram": "pnpm --filter @ofertas-cuba/scraper scrape:telegram",
+    "discover:groups": "pnpm --filter @ofertas-cuba/scraper discover"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

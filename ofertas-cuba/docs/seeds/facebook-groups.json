@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Compra Venta Cuba (ejemplo)",
+    "url": "https://www.facebook.com/groups/ejemplo-compra-venta-cuba",
+    "provinceId": null,
+    "notes": "Reemplazar con grupos publicos reales en fase 1"
+  },
+  {
+    "name": "La Habana compra venta (ejemplo)",
+    "url": "https://www.facebook.com/groups/ejemplo-habana",
+    "provinceId": "hab"
+  },
+  {
+    "name": "MLC Cuba (ejemplo)",
+    "url": "https://www.facebook.com/groups/ejemplo-mlc",
+    "provinceId": null
+  }
+]

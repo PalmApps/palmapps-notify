@@ -1,0 +1,10 @@
+{
+  "name": "OfertasCuba",
+  "short_name": "OfertasCuba",
+  "description": "Comparador de ofertas de compra y venta en Cuba",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1419",
+  "theme_color": "#2dd4bf",
+  "lang": "es"
+}

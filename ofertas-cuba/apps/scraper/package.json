@@ -1,0 +1,23 @@
+{
+  "name": "@ofertas-cuba/scraper",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "scrape:facebook": "tsx src/facebook/run.ts",
+    "scrape:telegram": "tsx src/telegram/run.ts",
+    "discover": "tsx src/discover.ts",
+    "auth:telegram": "tsx src/telegram/auth.ts"
+  },
+  "dependencies": {
+    "@ofertas-cuba/shared": "workspace:*",
+    "telegram": "^2.26.22"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
