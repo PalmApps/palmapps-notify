@@ -66,15 +66,20 @@ function Send-TelegramMessage {
     }
 }
 
+function Get-Bullet {
+    return [System.Text.Encoding]::UTF8.GetString([byte[]](0xE2, 0x80, 0xA2))
+}
+
 function Format-HistoryEntry {
     param($Entry, [string]$Template)
 
+    $bullet = Get-Bullet
     $changes = @()
     foreach ($line in @($Entry.changes)) {
         if ([string]::IsNullOrWhiteSpace([string]$line)) { continue }
-        $changes += "• $line"
+        $changes += "$bullet $line"
     }
-    $changesBlock = if ($changes.Count -gt 0) { $changes -join [Environment]::NewLine } else { '• Mejoras generales' }
+    $changesBlock = if ($changes.Count -gt 0) { $changes -join [Environment]::NewLine } else { "$bullet Mejoras generales" }
 
     $dateBlock = ''
     if ($Entry.date) {
@@ -112,7 +117,8 @@ foreach ($appKey in $targets) {
     }
 
     $history = Get-Content $historyPath -Raw -Encoding UTF8 | ConvertFrom-Json
-    if (-not $history.entries -or $history.entries.Count -eq 0) {
+    $entries = @($history.entries)
+    if ($entries.Count -eq 0) {
         Write-Host "Omitido $appKey (historial vacio)" -ForegroundColor Yellow
         continue
     }
@@ -123,7 +129,7 @@ foreach ($appKey in $targets) {
     Write-Host "Historial iniciado: $appKey"
     Start-Sleep -Seconds 1
 
-    foreach ($entry in @($history.entries)) {
+    foreach ($entry in $entries) {
         $message = (Format-HistoryEntry -Entry $entry -Template $entryTemplate).Trim()
         Send-TelegramMessage -Text $message -ThreadId $topicId
         Write-Host "  -> $($entry.title)"

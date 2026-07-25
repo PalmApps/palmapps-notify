@@ -6,6 +6,7 @@ $ActionPath = if ($env:ACTION_PATH) { $env:ACTION_PATH } else { Split-Path -Pare
 $AppsJsonPath = Join-Path $ActionPath 'templates\apps.json'
 $OutputDir = Join-Path $ActionPath 'output\promos'
 $ForumLink = if ($env:FORUM_LINK) { $env:FORUM_LINK } else { 'https://t.me/palmapps' }
+$CtaTemplatePath = Join-Path $ActionPath 'templates\social-promo-cta.txt'
 
 $ChannelTemplates = [ordered]@{
     instagram = 'social-promo-instagram.txt'
@@ -40,7 +41,7 @@ function Render-Promo {
         $promoHook = ($App.summary -replace '\..*$', '').Trim()
     }
 
-    $ctaLine = 'Guardalo y comparte con quien le sirva.'
+    $ctaLine = (Get-Content $CtaTemplatePath -Raw -Encoding UTF8).Trim()
 
     return $Template `
         -replace '\$\{DISPLAY_NAME\}', $App.displayName `
@@ -64,8 +65,8 @@ else {
     $targetKeys = @()
     foreach ($key in $allKeys) {
         $app = $apps.$key
-        $priority = Get-AppProperty $app 'promoPriority'
-        if ($priority -eq 'True' -or $priority -eq 'true') {
+        $priorityProp = $app.PSObject.Properties['promoPriority']
+        if ($null -ne $priorityProp -and [bool]$priorityProp.Value) {
             $targetKeys += $key
         }
     }
