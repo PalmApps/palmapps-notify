@@ -1,8 +1,7 @@
 {
   "entries": [
     {
-      "version": "2026-07",
-      "date": "2026-07",
+      "period": "Julio 2026",
       "title": "Panel de pruebas y mejoras del admin",
       "changes": [
         "Panel de pruebas en administración de plataforma",
@@ -11,8 +10,7 @@
       ]
     },
     {
-      "version": "2026-06",
-      "date": "2026-06",
+      "period": "Junio 2026",
       "title": "Galería de trabajos y reservas con fotos",
       "changes": [
         "Subir fotos al completar reservas",
@@ -21,8 +19,7 @@
       ]
     },
     {
-      "version": "2026-05",
-      "date": "2026-05",
+      "period": "Mayo 2026",
       "title": "Agenda admin rediseñada para móvil",
       "changes": [
         "Calendario y tarjetas optimizados en móvil",

@@ -1,0 +1,22 @@
+{
+    "costify":  {
+                    "topicId":  3,
+                    "historyMessageId":  66
+                },
+    "reservas":  {
+                     "topicId":  4,
+                     "historyMessageId":  62
+                 },
+    "viajando":  {
+                     "topicId":  5,
+                     "historyMessageId":  57
+                 },
+    "carta-restaurante":  {
+                              "topicId":  6,
+                              "historyMessageId":  63
+                          },
+    "rensoli-commerce":  {
+                             "topicId":  7,
+                             "historyMessageId":  64
+                         }
+}

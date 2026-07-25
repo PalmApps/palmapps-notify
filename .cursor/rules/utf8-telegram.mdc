@@ -61,8 +61,9 @@ Payload con `jq -n --arg text "$message" ...` (no `--data-urlencode` suelto para
 
 ### 5. Antes de publicar
 
-- Revisar que el mensaje no contenga `�` ni secuencias `Ã`, `�Y"`.
-- Preferir probar con un mensaje corto antes de barridos masivos (`MODE=welcome`, una app).
+- Revisar que el mensaje no contenga caracteres de reemplazo Unicode.
+- No usar punto medio `·` en scripts `.ps1`; separar con `-` ASCII o plantillas UTF-8.
+- Historial del foro: un mensaje por topic; editar con `editMessageText` y `data/forum-message-ids.json`.
 
 ### 6. Separadores
 

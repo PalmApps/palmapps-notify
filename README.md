@@ -128,12 +128,21 @@ Modos: `MODE=topics` (solo crear topics), `MODE=post` (solo publicar bienvenida 
 
 ### Historial de novedades por topic
 
-Edita `templates/history/{app}.json` y publica:
+Un **solo mensaje** por topic (editable, sin duplicar). Datos en `templates/history/{app}.json`. IDs en `data/forum-message-ids.json`.
 
 ```powershell
-.\scripts\post-forum-history.ps1          # todas las apps
-$env:APP='costify'; .\scripts\post-forum-history.ps1   # una app
+.\scripts\post-forum-history.ps1              # sync: edita si hay ID, si no publica
+$env:MODE='edit'; .\scripts\post-forum-history.ps1   # solo editar
+$env:APP='costify'; .\scripts\post-forum-history.ps1
 ```
+
+Si ya tienes el mensaje correcto en Telegram y solo quieres enlazarlo para futuras ediciones:
+
+```powershell
+$env:APP='costify'; $env:MESSAGE_ID=123; .\scripts\set-forum-message-id.ps1
+```
+
+Tras la primera publicacion consolidada, **borra** los mensajes viejos rotos en el topic y **ancla** el nuevo.
 
 ### Textos promocionales (redes sociales)
 
