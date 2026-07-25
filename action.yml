@@ -25,7 +25,7 @@ inputs:
     required: false
     default: 'false'
   app:
-    description: 'App: costify | reservas | viajando | carta-restaurante'
+    description: 'App: costify | reservas | viajando | carta-restaurante | rensoli-commerce (Rendesigns)'
     required: true
   version:
     description: Versión del release (ej. 1.0.18)

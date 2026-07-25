@@ -92,7 +92,7 @@ Legacy solo canal (`@v1`, sin foro):
 | `reservas` | Reservas | https://reservas-taupe.vercel.app |
 | `viajando` | Viajando | https://viajando-nine.vercel.app |
 | `carta-restaurante` | Carta Restaurante | (LAN / sin URL pública) |
-| `rensoli-commerce` | Rensoli Commerce | https://rensoli-commerce.vercel.app |
+| `rensoli-commerce` | Rendesigns | https://rensoli-commerce.vercel.app |
 
 Edita `templates/apps.json` para URLs, resúmenes (`summary`), audiencia (`audience`), funciones (`features`), stack (`platforms`, `stack`), `forumTopicId` y apps nuevas.
 

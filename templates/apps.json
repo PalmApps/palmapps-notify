@@ -85,18 +85,18 @@
     "forumTopicId": 6
   },
   "rensoli-commerce": {
-    "displayName": "Rensoli Commerce",
-    "hashtag": "#RensoliCommerce",
-    "summary": "Tienda online de Daymel Rensoli (Rendesigns): productos impresos en 3D, print-on-demand y servicios. Catálogo, carrito y pago con Stripe.",
-    "forumTagline": "Tienda 3D, print-on-demand y pagos Stripe (Rendesigns)",
-    "audience": "Clientes de Rendesigns / Daymel Rensoli que compran impresiones 3D, productos personalizados y servicios creativos.",
+    "displayName": "Rendesigns",
+    "hashtag": "#Rendesigns",
+    "summary": "Tienda online Rendesigns: productos impresos en 3D, print-on-demand y servicios creativos. Catálogo, carrito y pago con Stripe.",
+    "forumTagline": "Tienda 3D, print-on-demand y pagos Stripe",
+    "audience": "Clientes de Rendesigns que compran impresiones 3D, productos personalizados y servicios creativos.",
     "platforms": "Tienda web e-commerce",
     "stack": "Next.js, Vercel, Stripe",
     "features": [
       "Catálogo de productos impresos en 3D y print-on-demand",
       "Carrito de compras y checkout",
       "Pagos con Stripe",
-      "Marca Rendesigns / Daymel Rensoli",
+      "Marca Rendesigns",
       "Deploy en producción Vercel"
     ],
     "webUrl": "https://rensoli-commerce.vercel.app",
