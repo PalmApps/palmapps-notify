@@ -4,7 +4,10 @@ Checklist manual antes de Fase 1.
 
 ## 1. GitHub repo
 
-- [x] Repo privado `PalmApps/ofertas-cuba`
+El monorepo vive en `ofertas-cuba/` (bootstrap en palmapps-notify hasta separar).
+
+- [ ] Crear repo privado `PalmApps/ofertas-cuba` en GitHub (manual)
+- [ ] Copiar carpeta: `git subtree split` o push del subdirectorio
 - [ ] Branch protection en `main` (opcional)
 
 ## 2. Secrets (org PalmApps → Settings → Secrets)
