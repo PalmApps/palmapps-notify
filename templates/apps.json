@@ -1,0 +1,26 @@
+{
+  "costify": {
+    "displayName": "Costify",
+    "hashtag": "#Costify",
+    "webUrl": "https://costify-iota.vercel.app",
+    "downloadUrl": "https://costify-iota.vercel.app/descarga"
+  },
+  "reservas": {
+    "displayName": "Reservas",
+    "hashtag": "#Reservas",
+    "webUrl": "https://reservas-taupe.vercel.app",
+    "downloadUrl": ""
+  },
+  "viajando": {
+    "displayName": "Viajando",
+    "hashtag": "#Viajando",
+    "webUrl": "",
+    "downloadUrl": ""
+  },
+  "carta-restaurante": {
+    "displayName": "Carta Restaurante",
+    "hashtag": "#CartaRestaurante",
+    "webUrl": "",
+    "downloadUrl": ""
+  }
+}

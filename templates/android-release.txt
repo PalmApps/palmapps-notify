@@ -1,0 +1,17 @@
+🌴 PalmApps — ${DISPLAY_NAME} v${VERSION}
+
+${HASHTAG}
+
+✨ Novedades
+${CHANGELOG}
+
+📥 Descarga
+${DOWNLOAD_BLOCK}
+
+🌐 Web: ${WEB_URL}
+
+🔄 Cómo actualizar
+1. Abre el enlace de descarga
+2. Instala el APK nuevo (no hace falta desinstalar la anterior)
+
+${EXTRA_BLOCK}

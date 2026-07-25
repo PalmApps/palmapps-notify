@@ -1,0 +1,15 @@
+🌴 PalmApps — ${DISPLAY_NAME}
+
+${HASHTAG}
+
+🚀 Actualización en producción
+Versión: v${VERSION}
+
+✨ Cambios
+${CHANGELOG}
+
+🌐 Abrir: ${WEB_URL}
+
+🔄 Cómo verlo: recarga la página; no hay APK que instalar.
+
+${EXTRA_BLOCK}

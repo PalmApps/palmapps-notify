@@ -1,0 +1,68 @@
+name: PalmApps Telegram Notify
+description: Publica anuncios de release en el canal Telegram PalmApps (@palmapps)
+branding:
+  icon: send
+  color: green
+
+inputs:
+  telegram_bot_token:
+    description: Token del bot PalmApps (BotFather)
+    required: true
+  telegram_channel_id:
+    description: ID o username del canal (ej. @palmapps)
+    required: false
+    default: '@palmapps'
+  app:
+    description: 'App: costify | reservas | viajando | carta-restaurante'
+    required: true
+  version:
+    description: Versión del release (ej. 1.0.18)
+    required: true
+  template:
+    description: 'Plantilla: android-release | web-deploy'
+    required: false
+    default: android-release
+  changelog:
+    description: Lista de cambios (viñetas, multilínea)
+    required: false
+    default: ''
+  download_url:
+    description: URL directa de descarga (APK o página /descarga)
+    required: false
+    default: ''
+  release_page_url:
+    description: URL de GitHub Release u otra página de release
+    required: false
+    default: ''
+  web_url:
+    description: URL web de la app (sobreescribe la del catálogo)
+    required: false
+    default: ''
+  extra_lines:
+    description: Líneas extra (API, arquitectura, commit, etc.)
+    required: false
+    default: ''
+  commit:
+    description: SHA del commit (se añade a extra si no está en extra_lines)
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Send PalmApps Telegram notification
+      shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        TELEGRAM_BOT_TOKEN: ${{ inputs.telegram_bot_token }}
+        TELEGRAM_CHANNEL_ID: ${{ inputs.telegram_channel_id }}
+        APP: ${{ inputs.app }}
+        VERSION: ${{ inputs.version }}
+        TEMPLATE: ${{ inputs.template }}
+        CHANGELOG: ${{ inputs.changelog }}
+        DOWNLOAD_URL: ${{ inputs.download_url }}
+        RELEASE_PAGE_URL: ${{ inputs.release_page_url }}
+        WEB_URL: ${{ inputs.web_url }}
+        EXTRA_LINES: ${{ inputs.extra_lines }}
+        COMMIT: ${{ inputs.commit }}
+      run: bash "$ACTION_PATH/scripts/notify.sh"
