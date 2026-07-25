@@ -58,6 +58,22 @@ inputs:
     description: SHA del commit (se añade a extra si no está en extra_lines)
     required: false
     default: ''
+  notify_facebook:
+    description: 'Publicar promo en la Pagina de Facebook (requiere meta_page_id + meta_page_access_token)'
+    required: false
+    default: 'false'
+  meta_page_id:
+    description: ID numerico de la Pagina de Facebook (ej. 61592597813147)
+    required: false
+    default: ''
+  meta_page_access_token:
+    description: Token de acceso de la Pagina (Graph API, pages_manage_posts)
+    required: false
+    default: ''
+  facebook_forum_link:
+    description: Enlace al foro PalmApps en posts de Facebook
+    required: false
+    default: 'https://t.me/palmapps'
 
 runs:
   using: composite
@@ -81,3 +97,18 @@ runs:
         EXTRA_LINES: ${{ inputs.extra_lines }}
         COMMIT: ${{ inputs.commit }}
       run: bash "$ACTION_PATH/scripts/notify.sh"
+
+    - name: Publish Facebook Page post
+      if: inputs.notify_facebook == 'true'
+      shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        META_PAGE_ID: ${{ inputs.meta_page_id }}
+        META_PAGE_ACCESS_TOKEN: ${{ inputs.meta_page_access_token }}
+        FORUM_LINK: ${{ inputs.facebook_forum_link }}
+        APP: ${{ inputs.app }}
+        VERSION: ${{ inputs.version }}
+        CHANGELOG: ${{ inputs.changelog }}
+        DOWNLOAD_URL: ${{ inputs.download_url }}
+        WEB_URL: ${{ inputs.web_url }}
+      run: bash "$ACTION_PATH/scripts/publish-facebook.sh"

@@ -1,0 +1,14 @@
+${DISPLAY_NAME} ${HASHTAG}
+
+Nueva actualizacion v${VERSION}
+
+${PROMO_HOOK}
+
+Que hay de nuevo:
+${CHANGELOG}
+
+Prueba la app:
+${ACCESS_LINE}
+
+Foro PalmApps (novedades y enlaces):
+${FORUM_LINK}

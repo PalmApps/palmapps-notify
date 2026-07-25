@@ -150,12 +150,126 @@ Genera copys desde `apps.json` (prioridad: Costify, Reservas, Carta Restaurante)
 
 ```powershell
 .\scripts\generate-promo.ps1
-# output/promos/costify-instagram.txt, costify-whatsapp.txt, ...
+# output/promos/costify-instagram.txt, costify-facebook-page.txt, ...
 $env:APP='reservas'; .\scripts\generate-promo.ps1
 $env:ALL='true'; .\scripts\generate-promo.ps1   # todas las apps
 ```
 
-Plantillas: `templates/social-promo-*.txt` (instagram, whatsapp, x, generic).
+Plantillas: `templates/social-promo-*.txt` (instagram, whatsapp, x, generic, facebook-page).
+
+### Imagenes promocionales (feed + story)
+
+Genera PNG elegantes para **Facebook Page**, **Instagram feed** y **Stories / WhatsApp Status**:
+
+```powershell
+.\scripts\generate-promo-images.ps1
+$env:APP='costify'; .\scripts\generate-promo-images.ps1
+$env:APP='costify'; $env:VERSION='1.0.21'; .\scripts\generate-promo-images.ps1
+$env:ALL='true'; .\scripts\generate-promo-images.ps1
+```
+
+Salida en `output/promos/images/`:
+
+| Archivo | Uso |
+|---------|-----|
+| `{app}-feed.png` | Facebook Page, Instagram feed (1080×1080) |
+| `{app}-story.png` | Instagram Stories, WhatsApp Status (1080×1920) |
+
+Requisitos: Node.js LTS. La primera ejecución instala Playwright + Chromium.
+
+Colores por app: `templates/promo-themes.json`. Logo: `assets/palmapps-logo-transparent.png`.
+
+Flujo recomendado tras un release:
+
+1. CI publica en Telegram (`@palmapps`).
+2. `.\scripts\generate-promo.ps1` + `.\scripts\generate-promo-images.ps1`
+3. Publicas en tu **Página de Facebook** (imagen feed + texto `*-facebook-page.txt`).
+4. Subes `*-story.png` a Instagram / WhatsApp Status.
+
+### Facebook Page (profesional)
+
+Tu **perfil personal** no admite API; crea una **Página de Facebook** (gratis, sin empresa):
+
+1. Facebook → **Crear** → **Página** → nombre tipo *PalmApps* o *Tus apps*.
+2. Categoría: *Desarrollador de software* o *Empresa de tecnología*.
+3. Añade foto de perfil (`assets/palmapps-logo-full.png`) y portada (puedes usar un `*-feed.png`).
+4. En **Información** pon el enlace `https://t.me/palmapps`.
+5. (Opcional) Vincula **Instagram Creator** a la Página para publicar Stories vía API más adelante.
+
+Automatización futura (cuando tengas la Página): token de Meta + post con imagen desde CI. El timeline personal sigue siendo manual si quieres compartir ahí.
+
+### Facebook Page — publicacion automatica (CI)
+
+Pagina PalmApps: [facebook.com/profile.php?id=61592597813147](https://www.facebook.com/profile.php?id=61592597813147)
+
+#### 1. Token de Meta (una vez)
+
+1. Entra en [Meta for Developers](https://developers.facebook.com/) → **Mis apps** → **Crear app** → tipo **Otro** → **Negocio**.
+2. Nombre ej. `PalmApps Notify`. Anade el producto **Facebook Login** (o usa **Herramientas** → **Explorador de la API Graph**).
+3. En [Explorador de la API Graph](https://developers.facebook.com/tools/explorer/), selecciona tu app y genera un **token de usuario** con permisos:
+   - `pages_manage_posts`
+   - `pages_read_engagement`
+   - `pages_show_list`
+4. Con ese token, llama (en el explorador o con curl):
+
+   ```
+   GET /me/accounts
+   ```
+
+5. En la respuesta, busca la pagina **PalmApps** y copia:
+   - `id` → secret `META_PAGE_ID` (ej. `61592597813147`)
+   - `access_token` → secret `META_PAGE_ACCESS_TOKEN`
+
+6. **Secrets en GitHub** (org `PalmApps` o en cada repo CI):
+
+   | Secret | Valor |
+   |--------|--------|
+   | `META_PAGE_ID` | `61592597813147` |
+   | `META_PAGE_ACCESS_TOKEN` | token de la pagina del paso 5 |
+
+**Token largo:** intercambia el token de usuario por uno de larga duracion antes de `/me/accounts` (menu del Explorador → *Obtener token de acceso de larga duracion*), o usa un **System User** en Business Manager para produccion.
+
+**Prueba manual** (PowerShell, sin commitear el token):
+
+```powershell
+$token = "..."   # META_PAGE_ACCESS_TOKEN
+$pageId = "61592597813147"
+$env:ACTION_PATH = "D:\Devops\Repos\palmapps-notify"
+$env:META_PAGE_ID = $pageId
+$env:META_PAGE_ACCESS_TOKEN = $token
+$env:APP = "costify"
+$env:VERSION = "1.0.21"
+$env:CHANGELOG = "Prueba de publicacion automatica"
+bash scripts/publish-facebook.sh
+```
+
+#### 2. Activar en el workflow del repo (ej. Costify)
+
+Tras publicar tag **`v3`** en `palmapps-notify`:
+
+```yaml
+- name: Notify PalmApps Telegram + Facebook
+  uses: PalmApps/palmapps-notify@v3
+  with:
+    telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    telegram_forum_chat_id: ${{ secrets.TELEGRAM_FORUM_CHAT_ID }}
+    notify_facebook: true
+    meta_page_id: ${{ secrets.META_PAGE_ID }}
+    meta_page_access_token: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+    app: costify
+    version: ${{ steps.meta.outputs.version }}
+    template: android-release
+    release_page_url: https://github.com/PalmApps/Costify/releases/tag/${{ steps.meta.outputs.tag }}
+    changelog: |
+      Mejora 1
+      Mejora 2
+```
+
+Cada release publica en **Telegram** (foro) y en la **Pagina de Facebook** (texto + enlace de vista previa a la web o al foro).
+
+Plantilla del post FB: `templates/facebook-page-release.txt`.
+
+**Imagen en el post:** por ahora el CI publica texto + link. Para subir el PNG promo (`*-feed.png`), genera la imagen en un step previo y pasa `FACEBOOK_IMAGE_PATH` (soporte en `publish-facebook.sh`); Stories/IG siguen manuales o en una fase 2.
 
 ### 3. CI
 
@@ -181,7 +295,10 @@ $env:TELEGRAM_CHANNEL_ID='@palmappschannel'
 | `templates/channel-app-intro.txt` | Ficha breve (canal legacy) |
 | `templates/forum-history-entry.txt` | Entrada del historial en un topic |
 | `templates/history/*.json` | Historial de novedades por app |
-| `templates/social-promo-*.txt` | Promo para Instagram, WhatsApp, X, genérico |
+| `templates/social-promo-*.txt` | Promo para Instagram, WhatsApp, X, Facebook Page, genérico |
+| `templates/promo-themes.json` | Colores por app para imágenes promo |
+| `templates/facebook-page-release.txt` | Post automatico en Facebook Page (CI) |
+| `scripts/publish-facebook.sh` | Publicar en Facebook via Graph API |
 
 Variables en plantillas de release: `$DISPLAY_NAME`, `$VERSION`, `$HASHTAG`, `$CHANGELOG`, `$DOWNLOAD_BLOCK`, `$WEB_URL`, `$EXTRA_BLOCK`.
 

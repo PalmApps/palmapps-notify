@@ -61,7 +61,7 @@ if [[ ${#targets[@]} -eq 0 ]]; then
 fi
 
 for app_key in "${targets[@]}"; do
-  for channel in instagram whatsapp x generic; do
+  for channel in instagram whatsapp x generic facebook-page; do
     content=$(render_promo "$app_key" "$channel" | sed -e '${/^$/d;}')
     out_path="$OUTPUT_DIR/${app_key}-${channel}.txt"
     printf '%s\n' "$content" > "$out_path"
@@ -69,4 +69,4 @@ for app_key in "${targets[@]}"; do
   done
 done
 
-echo "Promos en ${OUTPUT_DIR} (${#targets[@]} apps x 4 canales)"
+echo "Promos en ${OUTPUT_DIR} (${#targets[@]} apps x 5 canales)"

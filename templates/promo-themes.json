@@ -1,0 +1,44 @@
+{
+  "default": {
+    "accent": "#38bdf8",
+    "accentSoft": "rgba(56, 189, 248, 0.16)",
+    "bgFrom": "#0b1220",
+    "bgTo": "#111827",
+    "glow": "rgba(56, 189, 248, 0.35)"
+  },
+  "costify": {
+    "accent": "#34d399",
+    "accentSoft": "rgba(52, 211, 153, 0.18)",
+    "bgFrom": "#061410",
+    "bgTo": "#0f2419",
+    "glow": "rgba(52, 211, 153, 0.4)"
+  },
+  "reservas": {
+    "accent": "#f472b6",
+    "accentSoft": "rgba(244, 114, 182, 0.18)",
+    "bgFrom": "#160a12",
+    "bgTo": "#241018",
+    "glow": "rgba(244, 114, 182, 0.38)"
+  },
+  "viajando": {
+    "accent": "#60a5fa",
+    "accentSoft": "rgba(96, 165, 250, 0.18)",
+    "bgFrom": "#081018",
+    "bgTo": "#0f1c2e",
+    "glow": "rgba(96, 165, 250, 0.38)"
+  },
+  "carta-restaurante": {
+    "accent": "#fbbf24",
+    "accentSoft": "rgba(251, 191, 36, 0.18)",
+    "bgFrom": "#141008",
+    "bgTo": "#241a0a",
+    "glow": "rgba(251, 191, 36, 0.35)"
+  },
+  "rensoli-commerce": {
+    "accent": "#a78bfa",
+    "accentSoft": "rgba(167, 139, 250, 0.18)",
+    "bgFrom": "#100d18",
+    "bgTo": "#1a1428",
+    "glow": "rgba(167, 139, 250, 0.38)"
+  }
+}

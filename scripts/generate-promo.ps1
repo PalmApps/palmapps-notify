@@ -9,10 +9,11 @@ $ForumLink = if ($env:FORUM_LINK) { $env:FORUM_LINK } else { 'https://t.me/palma
 $CtaTemplatePath = Join-Path $ActionPath 'templates\social-promo-cta.txt'
 
 $ChannelTemplates = [ordered]@{
-    instagram = 'social-promo-instagram.txt'
-    whatsapp  = 'social-promo-whatsapp.txt'
-    x         = 'social-promo-x.txt'
-    generic   = 'social-promo-generic.txt'
+    instagram     = 'social-promo-instagram.txt'
+    whatsapp      = 'social-promo-whatsapp.txt'
+    x             = 'social-promo-x.txt'
+    generic       = 'social-promo-generic.txt'
+    'facebook-page' = 'social-promo-facebook-page.txt'
 }
 
 function Get-AppProperty {
