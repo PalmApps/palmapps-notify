@@ -1,27 +1,40 @@
 # palmapps-notify
 
-GitHub Action reutilizable para publicar **releases y deploys** en el canal Telegram [PalmApps](https://t.me/palmapps).
+GitHub Action reutilizable para publicar **releases y deploys** en el foro Telegram [PalmApps](https://t.me/palmapps) (un topic por app).
 
 Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo invoca la action con `app`, `version` y `changelog`.
 
+## Arquitectura Telegram
+
+| Destino | Username | Rol |
+|---------|----------|-----|
+| **Foro (principal)** | [@palmapps](https://t.me/palmapps) | Hub de releases con topics por app |
+| Canal legacy (opcional) | [@palmappschannel](https://t.me/palmappschannel) | Broadcast duplicado; ya no hace falta si usas solo el foro |
+
+**Recomendación:** deja de publicar releases en el canal. Pon un mensaje anclado en `@palmappschannel` con enlace a `@palmapps` y archívalo o bórralo cuando nadie lo use. En redes promociona solo `t.me/palmapps`.
+
 ## Requisitos
 
-1. Canal Telegram `@palmapps` con el bot como administrador (permiso **Publicar mensajes**).
-2. Secrets en el repo que dispara el workflow (o en la organización):
+1. Foro `@palmapps` con el bot como admin (**Publicar mensajes** + **Gestionar topics**).
+2. Topics creados (`.\scripts\setup-forum.ps1`) → `forumTopicId` en `templates/apps.json`.
+3. Secrets en la org o repo CI:
 
 | Secret | Valor |
 |--------|--------|
 | `TELEGRAM_BOT_TOKEN` | Token de @BotFather |
-| `TELEGRAM_CHANNEL_ID` | `@palmapps` (o ID `-100…`) |
+| `TELEGRAM_FORUM_CHAT_ID` | `@palmapps` |
+| `TELEGRAM_CHANNEL_ID` | `@palmappschannel` (solo si `notify_channel: true`) |
 
 ## Uso — Android APK (Costify)
 
+Recomendado (`@v2`, solo foro):
+
 ```yaml
 - name: Notify PalmApps Telegram
-  uses: PalmApps/palmapps-notify@v1
+  uses: PalmApps/palmapps-notify@v2
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-    telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+    telegram_forum_chat_id: ${{ secrets.TELEGRAM_FORUM_CHAT_ID }}
     app: costify
     version: ${{ steps.meta.outputs.version }}
     template: android-release
@@ -35,9 +48,14 @@ Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo inv
     commit: ${{ github.sha }}
 ```
 
-`download_url` y `web_url` se rellenan desde `templates/apps.json` si no los pasas.
+Duplicar también al canal legacy:
 
-## Uso — solo web (Vercel production)
+```yaml
+    telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+    notify_channel: true
+```
+
+Legacy solo canal (`@v1`, sin foro):
 
 ```yaml
 - name: Notify PalmApps Telegram
@@ -45,6 +63,20 @@ Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo inv
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+    app: costify
+    ...
+```
+
+`download_url` y `web_url` se rellenan desde `templates/apps.json` si no los pasas.
+
+## Uso — solo web (Vercel production)
+
+```yaml
+- name: Notify PalmApps Telegram
+  uses: PalmApps/palmapps-notify@v2
+  with:
+    telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    telegram_forum_chat_id: ${{ secrets.TELEGRAM_FORUM_CHAT_ID }}
     app: reservas
     version: ${{ github.sha }}
     template: web-deploy
@@ -58,11 +90,48 @@ Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo inv
 |-------|--------|-----------------|
 | `costify` | Costify | https://costify-iota.vercel.app |
 | `reservas` | Reservas | https://reservas-taupe.vercel.app |
-| `viajando` | Viajando | (configurar en `apps.json`) |
-| `carta-restaurante` | Carta Restaurante | (configurar en `apps.json`) |
+| `viajando` | Viajando | https://viajando-nine.vercel.app |
+| `carta-restaurante` | Carta Restaurante | (LAN / sin URL pública) |
 | `rensoli-commerce` | Rensoli Commerce | https://rensoli-commerce.vercel.app |
 
-Edita `templates/apps.json` para URLs y añadir apps nuevas.
+Edita `templates/apps.json` para URLs, resúmenes (`summary`), `forumTopicId` y apps nuevas.
+
+## Setup del foro (@palmapps)
+
+### 1. Permiso del bot (manual en Telegram)
+
+En `@palmapps` → **Administradores** → `@PalmAppsNotify_bot` → activar **Gestionar topics** (*Manage Topics*).
+
+### 2. Crear topics + intros
+
+```powershell
+cd D:\Devops\Repos\palmapps-notify
+.\scripts\setup-forum.ps1
+```
+
+Linux / Git Bash:
+
+```bash
+export TELEGRAM_BOT_TOKEN=...
+export TELEGRAM_FORUM_CHAT_ID=@palmapps
+export ACTION_PATH="$(pwd)"
+bash scripts/setup-forum.sh
+```
+
+Modos: `MODE=topics` (solo crear topics), `MODE=post` (solo publicar bienvenida + fichas).
+
+### 3. CI
+
+Secret org `TELEGRAM_FORUM_CHAT_ID=@palmapps`. Publica tag **`v2`** tras push (`git tag v2 && git push origin v2`).
+
+## Canal legacy (@palmappschannel)
+
+Scripts antiguos de intro del canal (si aún lo usas para redirigir):
+
+```powershell
+$env:TELEGRAM_CHANNEL_ID='@palmappschannel'
+.\scripts\post-channel-intros.ps1
+```
 
 ## Plantillas
 
@@ -70,24 +139,25 @@ Edita `templates/apps.json` para URLs y añadir apps nuevas.
 |---------|-----|
 | `templates/android-release.txt` | APK + web |
 | `templates/web-deploy.txt` | Deploy web sin APK |
+| `templates/forum-welcome.txt` | Bienvenida al topic General |
+| `templates/channel-app-intro.txt` | Ficha intro de cada app (foro o canal) |
+| `templates/channel-welcome.txt` | Bienvenida canal legacy |
 
-Variables en plantillas: `$DISPLAY_NAME`, `$VERSION`, `$HASHTAG`, `$CHANGELOG`, `$DOWNLOAD_BLOCK`, `$WEB_URL`, `$EXTRA_BLOCK`.
+Variables en plantillas de release: `$DISPLAY_NAME`, `$VERSION`, `$HASHTAG`, `$CHANGELOG`, `$DOWNLOAD_BLOCK`, `$WEB_URL`, `$EXTRA_BLOCK`.
 
 ## Publicar la action
 
-Tras push al repo GitHub, crea el tag para que otros repos puedan usar `@v1`:
-
 ```bash
-git tag v1
+git tag v2   # foro @palmapps (recomendado)
 git push origin main
-git push origin v1
+git push origin v2
 ```
 
 ## Desarrollo local
 
 ```bash
 export TELEGRAM_BOT_TOKEN=...
-export TELEGRAM_CHANNEL_ID=@palmapps
+export TELEGRAM_FORUM_CHAT_ID=@palmapps
 export APP=costify
 export VERSION=1.0.18
 export TEMPLATE=android-release

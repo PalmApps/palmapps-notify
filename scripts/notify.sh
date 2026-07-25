@@ -16,7 +16,10 @@ if [[ -z "${TELEGRAM_BOT_TOKEN:-}" ]]; then
   exit 1
 fi
 
-CHANNEL_ID="${TELEGRAM_CHANNEL_ID:-@palmapps}"
+CHANNEL_ID="${TELEGRAM_CHANNEL_ID:-}"
+FORUM_CHAT_ID="${TELEGRAM_FORUM_CHAT_ID:-}"
+NOTIFY_FORUM="${NOTIFY_FORUM:-true}"
+NOTIFY_CHANNEL="${NOTIFY_CHANNEL:-false}"
 APP_KEY="${APP:?APP is required}"
 VERSION="${VERSION:?VERSION is required}"
 
@@ -34,6 +37,7 @@ DISPLAY_NAME=$(jq -r --arg k "$APP_KEY" '.[$k].displayName' "$APPS_JSON")
 HASHTAG=$(jq -r --arg k "$APP_KEY" '.[$k].hashtag' "$APPS_JSON")
 DEFAULT_WEB=$(jq -r --arg k "$APP_KEY" '.[$k].webUrl' "$APPS_JSON")
 DEFAULT_DOWNLOAD=$(jq -r --arg k "$APP_KEY" '.[$k].downloadUrl' "$APPS_JSON")
+FORUM_TOPIC_ID=$(jq -r --arg k "$APP_KEY" '.[$k].forumTopicId // empty' "$APPS_JSON")
 
 WEB_URL="${WEB_URL:-}"
 if [[ -z "$WEB_URL" || "$WEB_URL" == "null" ]]; then
@@ -97,15 +101,68 @@ export DISPLAY_NAME HASHTAG VERSION CHANGELOG DOWNLOAD_BLOCK WEB_URL EXTRA_BLOCK
 MESSAGE=$(envsubst '$DISPLAY_NAME $HASHTAG $VERSION $CHANGELOG $DOWNLOAD_BLOCK $WEB_URL $EXTRA_BLOCK' < "$TEMPLATE_FILE")
 MESSAGE=$(printf '%s' "$MESSAGE" | sed -e '${/^$/d;}')
 
-RESPONSE=$(curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-  --data-urlencode "chat_id=${CHANNEL_ID}" \
-  --data-urlencode "text=${MESSAGE}" \
-  --data-urlencode "disable_web_page_preview=false")
+send_telegram_message() {
+  local chat_id="$1"
+  local text="$2"
+  local thread_id="${3:-}"
+  local payload response
 
-if ! jq -e '.ok == true' <<<"$RESPONSE" >/dev/null 2>&1; then
-  echo "Telegram API error:" >&2
-  jq . <<<"$RESPONSE" >&2 || echo "$RESPONSE" >&2
-  exit 1
+  if [[ -n "$thread_id" && "$thread_id" != "null" ]]; then
+    payload=$(jq -n \
+      --arg chat_id "$chat_id" \
+      --arg text "$text" \
+      --argjson thread_id "$thread_id" \
+      '{chat_id: $chat_id, message_thread_id: $thread_id, text: $text, disable_web_page_preview: false}')
+  else
+    payload=$(jq -n \
+      --arg chat_id "$chat_id" \
+      --arg text "$text" \
+      '{chat_id: $chat_id, text: $text, disable_web_page_preview: false}')
+  fi
+
+  response=$(curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+    -H "Content-Type: application/json; charset=utf-8" \
+    --data-binary "$payload")
+
+  if ! jq -e '.ok == true' <<<"$response" >/dev/null 2>&1; then
+    echo "Telegram API error (${chat_id}):" >&2
+    jq . <<<"$response" >&2 || echo "$response" >&2
+    return 1
+  fi
+
+  return 0
+}
+
+sent_any=false
+
+if [[ -n "$FORUM_CHAT_ID" && "$NOTIFY_FORUM" != "false" && -n "$FORUM_TOPIC_ID" && "$FORUM_TOPIC_ID" != "null" ]]; then
+  if send_telegram_message "$FORUM_CHAT_ID" "$MESSAGE" "$FORUM_TOPIC_ID"; then
+    echo "PalmApps notification sent to ${FORUM_CHAT_ID} (topic ${FORUM_TOPIC_ID})"
+    sent_any=true
+  else
+    echo "Forum notification failed for ${FORUM_CHAT_ID} (topic ${FORUM_TOPIC_ID})" >&2
+  fi
+elif [[ -n "$FORUM_CHAT_ID" && "$NOTIFY_FORUM" != "false" ]]; then
+  echo "No forumTopicId for app ${APP_KEY} in apps.json — run scripts/setup-forum.ps1" >&2
 fi
 
-echo "PalmApps Telegram notification sent to ${CHANNEL_ID}"
+if [[ "$NOTIFY_CHANNEL" == "true" && -n "$CHANNEL_ID" ]]; then
+  if send_telegram_message "$CHANNEL_ID" "$MESSAGE"; then
+    echo "PalmApps notification sent to channel ${CHANNEL_ID}"
+    sent_any=true
+  else
+    echo "Channel notification failed for ${CHANNEL_ID}" >&2
+  fi
+elif [[ "$sent_any" == false && -n "$CHANNEL_ID" ]]; then
+  if send_telegram_message "$CHANNEL_ID" "$MESSAGE"; then
+    echo "PalmApps notification sent to channel ${CHANNEL_ID}"
+    sent_any=true
+  else
+    echo "Channel notification failed for ${CHANNEL_ID}" >&2
+  fi
+fi
+
+if [[ "$sent_any" == false ]]; then
+  echo "No notification sent. Configure TELEGRAM_FORUM_CHAT_ID (@palmapps) + forumTopicId, or TELEGRAM_CHANNEL_ID for legacy mode." >&2
+  exit 1
+fi

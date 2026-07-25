@@ -1,0 +1,1 @@
+🌐 Acceso: despliegue local (sin URL pública en producción)

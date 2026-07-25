@@ -2,31 +2,46 @@
   "costify": {
     "displayName": "Costify",
     "hashtag": "#Costify",
+    "summary": "Calculadora de costos, inventario y precios para micro y pequeñas empresas (MIPYME). Control de almacenes, fichas de costo, márgenes e impuestos, con sync en la nube y soporte offline.",
     "webUrl": "https://costify-iota.vercel.app",
-    "downloadUrl": "https://costify-iota.vercel.app/descarga"
+    "downloadUrl": "https://costify-iota.vercel.app/descarga",
+    "repoUrl": "https://github.com/PalmApps/Costify",
+    "forumTopicId": 3
   },
   "reservas": {
     "displayName": "Reservas",
     "hashtag": "#Reservas",
+    "summary": "Plataforma de reservas online para salones y negocios de servicios. Página propia, agenda, clientes y panel admin listos para compartir por WhatsApp.",
     "webUrl": "https://reservas-taupe.vercel.app",
-    "downloadUrl": ""
+    "downloadUrl": "",
+    "repoUrl": "https://github.com/PalmApps/reservas",
+    "forumTopicId": 4
   },
   "viajando": {
     "displayName": "Viajando",
     "hashtag": "#Viajando",
-    "webUrl": "",
-    "downloadUrl": ""
+    "summary": "Instantes Excursiones — catálogo de viajes y excursiones en Cuba, calculadora de precios, reservas, cupos y panel admin.",
+    "webUrl": "https://viajando-nine.vercel.app",
+    "downloadUrl": "",
+    "repoUrl": "https://github.com/PalmApps/viajando",
+    "forumTopicId": 5
   },
   "carta-restaurante": {
     "displayName": "Carta Restaurante",
     "hashtag": "#CartaRestaurante",
+    "summary": "Carta digital para restaurantes con panel admin. Pensada para servirse en la red local del local (LAN); ideal para menú en móvil y tablet.",
     "webUrl": "",
-    "downloadUrl": ""
+    "downloadUrl": "",
+    "repoUrl": "https://github.com/PalmApps/carta-restaurante",
+    "forumTopicId": 6
   },
   "rensoli-commerce": {
     "displayName": "Rensoli Commerce",
     "hashtag": "#RensoliCommerce",
+    "summary": "Tienda online de Daymel Rensoli (Rendesigns): productos impresos en 3D, print-on-demand y servicios. Catálogo, carrito y pago con Stripe.",
     "webUrl": "https://rensoli-commerce.vercel.app",
-    "downloadUrl": ""
+    "downloadUrl": "",
+    "repoUrl": "https://github.com/PalmApps/rensoli-commerce",
+    "forumTopicId": 7
   }
 }

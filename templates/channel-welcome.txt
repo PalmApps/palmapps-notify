@@ -1,0 +1,12 @@
+🌴 PalmApps — canal oficial
+
+Hub de releases y novedades del ecosistema PalmApps (Software Development).
+
+Aquí publicamos:
+• Nuevas versiones y deploys en producción
+• Enlaces para probar cada app
+• Changelog resumido de cada release
+
+Las redes sociales llevan promo; el detalle técnico vive aquí.
+
+👇 Catálogo de apps:

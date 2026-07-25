@@ -1,5 +1,5 @@
 name: PalmApps Telegram Notify
-description: Publica anuncios de release en el canal Telegram PalmApps (@palmapps)
+description: Publica releases en el foro PalmApps (@palmapps) o canal legacy opcional
 branding:
   icon: send
   color: green
@@ -9,9 +9,21 @@ inputs:
     description: Token del bot PalmApps (BotFather)
     required: true
   telegram_channel_id:
-    description: ID o username del canal (ej. @palmapps)
+    description: Canal legacy opcional (ej. @palmappschannel). Solo si notify_channel=true.
+    required: false
+    default: ''
+  telegram_forum_chat_id:
+    description: Foro PalmApps (ej. @palmapps). Publica en el topic de la app.
     required: false
     default: '@palmapps'
+  notify_forum:
+    description: 'Publicar en el topic del foro (requiere forumTopicId en apps.json)'
+    required: false
+    default: 'true'
+  notify_channel:
+    description: 'Duplicar también en canal legacy (@palmappschannel)'
+    required: false
+    default: 'false'
   app:
     description: 'App: costify | reservas | viajando | carta-restaurante'
     required: true
@@ -56,6 +68,9 @@ runs:
         ACTION_PATH: ${{ github.action_path }}
         TELEGRAM_BOT_TOKEN: ${{ inputs.telegram_bot_token }}
         TELEGRAM_CHANNEL_ID: ${{ inputs.telegram_channel_id }}
+        TELEGRAM_FORUM_CHAT_ID: ${{ inputs.telegram_forum_chat_id }}
+        NOTIFY_FORUM: ${{ inputs.notify_forum }}
+        NOTIFY_CHANNEL: ${{ inputs.notify_channel }}
         APP: ${{ inputs.app }}
         VERSION: ${{ inputs.version }}
         TEMPLATE: ${{ inputs.template }}

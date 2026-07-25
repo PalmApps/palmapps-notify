@@ -1,0 +1,10 @@
+🌴 PalmApps — foro oficial
+
+Hub de releases del ecosistema PalmApps (Software Development).
+
+Cada app tiene su topic con:
+• Nuevas versiones y deploys en producción
+• Enlaces para probar cada app
+• Changelog resumido de cada release
+
+👇 Elige el topic de la app que te interese:
