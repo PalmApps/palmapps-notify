@@ -66,6 +66,6 @@ packages/shared→ provincias, blacklist, parser precio
 | Bot | Uso |
 |-----|-----|
 | `@PalmAppsNotify_bot` | CI → foro PalmApps |
-| `@OfertasCuba_bot` (nuevo) | Producto: buscar, alertas, reenvios |
+| `@Ofertas_Cuba_bot` | Producto: buscar, alertas, reenvios |
 
 Ver `docs/SETUP.md` para checklist de secrets y servicios.

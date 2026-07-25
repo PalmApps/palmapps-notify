@@ -25,8 +25,8 @@ El monorepo vive en `ofertas-cuba/` (bootstrap en palmapps-notify hasta separar)
 
 ## 3. BotFather
 
-1. `/newbot` → nombre **OfertasCuba**, username `@OfertasCuba_bot` (o disponible)
-2. Guardar token en `TELEGRAM_OFERTAS_BOT_TOKEN`
+1. Bot creado: **Ofertas Cuba** → `@Ofertas_Cuba_bot`
+2. Guardar token en `TELEGRAM_OFERTAS_BOT_TOKEN` (org secrets; no en el repo)
 3. Actualizar `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` en Vercel
 
 ## 4. Neon

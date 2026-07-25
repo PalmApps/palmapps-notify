@@ -6,7 +6,7 @@ Indexa ofertas de grupos publicos de **Facebook** y **Telegram**, muestra precio
 
 - Web (MVP): https://ofertascuba.vercel.app
 - Foro novedades: https://t.me/palmapps
-- Bot producto: `@OfertasCuba_bot` (pendiente crear en BotFather)
+- Bot producto: `@Ofertas_Cuba_bot`
 
 ## Monorepo
 
