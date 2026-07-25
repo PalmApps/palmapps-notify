@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: costify | reservas | viajando | carta-restaurante
+        description: costify | reservas | viajando | carta-restaurante | rensoli-commerce
         required: true
         default: reservas
       version:

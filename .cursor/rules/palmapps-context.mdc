@@ -96,6 +96,7 @@ GitHub Action **reutilizable** que centraliza:
 | `reservas` | Reservas | https://reservas-taupe.vercel.app |
 | `viajando` | Viajando | (completar URL en apps.json) |
 | `carta-restaurante` | Carta Restaurante | (completar URL en apps.json) |
+| `rensoli-commerce` | Rensoli Commerce | https://rensoli-commerce.vercel.app |
 
 ---
 
@@ -107,6 +108,7 @@ GitHub Action **reutilizable** que centraliza:
 | Reservas | `D:\Devops\Repos\reservas` | https://reservas-taupe.vercel.app | Next 15, MongoDB `nailsalon`, npm |
 | Viajando | `D:\Devops\Repos\viajando` | (Vercel) | Next 16 |
 | Carta restaurante | `D:\Devops\Repos\carta-restaurante` | (Vercel) | Next 16, SQLite |
+| Rensoli Commerce | `D:\Devops\Repos\rensoli-commerce` | https://rensoli-commerce.vercel.app | Next 16, Stripe, Postgres |
 
 ---
 

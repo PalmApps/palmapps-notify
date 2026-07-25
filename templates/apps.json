@@ -22,5 +22,11 @@
     "hashtag": "#CartaRestaurante",
     "webUrl": "",
     "downloadUrl": ""
+  },
+  "rensoli-commerce": {
+    "displayName": "Rensoli Commerce",
+    "hashtag": "#RensoliCommerce",
+    "webUrl": "https://rensoli-commerce.vercel.app",
+    "downloadUrl": ""
   }
 }

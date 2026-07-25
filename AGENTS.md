@@ -4,7 +4,7 @@ Documento de contexto para agentes de IA. **Confidencial:** no incluir tokens; u
 
 ## Qué es PalmApps
 
-Hub de **releases oficiales** para las apps del ecosistema (Costify, Reservas, Viajando, Carta Restaurante).
+Hub de **releases oficiales** para las apps del ecosistema (Costify, Reservas, Viajando, Carta Restaurante, Rensoli Commerce).
 
 - Canal Telegram: https://t.me/palmapps (`@palmapps`)
 - Bot: `@PalmAppsNotify_bot`
@@ -41,6 +41,7 @@ Requiere tag `v1` en GitHub tras primer push.
 | `reservas` | `D:\Devops\Repos\reservas` | https://reservas-taupe.vercel.app |
 | `viajando` | `D:\Devops\Repos\viajando` | (Vercel) |
 | `carta-restaurante` | `D:\Devops\Repos\carta-restaurante` | (Vercel) |
+| `rensoli-commerce` | `D:\Devops\Repos\rensoli-commerce` | https://rensoli-commerce.vercel.app |
 
 Costify APK releases: tag `v*.*.*` → workflow `Costify/.github/workflows/android-release.yml` (incluye step Telegram si está pusheado).
 

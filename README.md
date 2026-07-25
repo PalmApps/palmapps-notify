@@ -60,6 +60,7 @@ Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo inv
 | `reservas` | Reservas | https://reservas-taupe.vercel.app |
 | `viajando` | Viajando | (configurar en `apps.json`) |
 | `carta-restaurante` | Carta Restaurante | (configurar en `apps.json`) |
+| `rensoli-commerce` | Rensoli Commerce | https://rensoli-commerce.vercel.app |
 
 Edita `templates/apps.json` para URLs y añadir apps nuevas.
 
