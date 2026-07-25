@@ -94,7 +94,13 @@ Legacy solo canal (`@v1`, sin foro):
 | `carta-restaurante` | Carta Restaurante | (LAN / sin URL pública) |
 | `rensoli-commerce` | Rensoli Commerce | https://rensoli-commerce.vercel.app |
 
-Edita `templates/apps.json` para URLs, resúmenes (`summary`), `forumTopicId` y apps nuevas.
+Edita `templates/apps.json` para URLs, resúmenes (`summary`), audiencia (`audience`), funciones (`features`), stack (`platforms`, `stack`), `forumTopicId` y apps nuevas.
+
+Plantilla de ficha detallada por topic: `templates/forum-app-detail.txt`. Republicar:
+
+```powershell
+$env:MODE='post'; .\scripts\setup-forum.ps1
+```
 
 ## Setup del foro (@palmapps)
 
@@ -140,7 +146,8 @@ $env:TELEGRAM_CHANNEL_ID='@palmappschannel'
 | `templates/android-release.txt` | APK + web |
 | `templates/web-deploy.txt` | Deploy web sin APK |
 | `templates/forum-welcome.txt` | Bienvenida al topic General |
-| `templates/channel-app-intro.txt` | Ficha intro de cada app (foro o canal) |
+| `templates/forum-app-detail.txt` | Ficha detallada por app (foro) |
+| `templates/channel-app-intro.txt` | Ficha breve (canal legacy) |
 | `templates/channel-welcome.txt` | Bienvenida canal legacy |
 
 Variables en plantillas de release: `$DISPLAY_NAME`, `$VERSION`, `$HASHTAG`, `$CHANGELOG`, `$DOWNLOAD_BLOCK`, `$WEB_URL`, `$EXTRA_BLOCK`.

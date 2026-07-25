@@ -1,0 +1,19 @@
+📱 ${DISPLAY_NAME}
+${HASHTAG}
+
+${SUMMARY}
+
+👥 Para quién
+${AUDIENCE}
+
+✨ Qué incluye
+${FEATURES_BLOCK}
+
+🛠 Plataforma
+${PLATFORMS}
+${STACK_BLOCK}
+
+${ACCESS_BLOCK}
+${REPO_BLOCK}
+
+📣 En este topic publicamos releases, deploys y changelog de ${DISPLAY_NAME}.

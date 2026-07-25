@@ -4,7 +4,7 @@ set -euo pipefail
 ACTION_PATH="${ACTION_PATH:-$(cd "$(dirname "$0")/.." && pwd)}"
 APPS_JSON="$ACTION_PATH/templates/apps.json"
 WELCOME_FILE="$ACTION_PATH/templates/forum-welcome.txt"
-INTRO_FILE="$ACTION_PATH/templates/channel-app-intro.txt"
+INTRO_FILE="$ACTION_PATH/templates/forum-app-detail.txt"
 ACCESS_LOCAL_FILE="$ACTION_PATH/templates/channel-access-local.txt"
 
 if [[ -z "${TELEGRAM_BOT_TOKEN:-}" ]]; then
@@ -127,15 +127,42 @@ build_access_block() {
   printf '%s\n' "${lines[@]}"
 }
 
+build_features_block() {
+  local app_key="$1"
+  local lines
+  lines=$(jq -r --arg k "$app_key" '.[$k].features[]? // empty' "$APPS_JSON")
+  if [[ -z "$lines" ]]; then
+    echo "• Ver resumen arriba"
+    return
+  fi
+  while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    printf '• %s\n' "$line"
+  done <<< "$lines"
+}
+
+build_stack_block() {
+  local app_key="$1"
+  local stack
+  stack=$(jq -r --arg k "$app_key" '.[$k].stack // empty' "$APPS_JSON")
+  if [[ -n "$stack" && "$stack" != "null" ]]; then
+    printf 'Stack: %s' "$stack"
+  fi
+}
+
 post_intros() {
+  local skip_welcome="${1:-false}"
   local message
-  message=$(cat "$WELCOME_FILE" | sed -e '${/^$/d;}')
-  send_message "$message" "$GENERAL_TOPIC_ID"
-  echo "Bienvenida publicada en topic General"
-  sleep 1
+
+  if [[ "$skip_welcome" != "true" ]]; then
+    message=$(cat "$WELCOME_FILE" | sed -e '${/^$/d;}')
+    send_message "$message" "$GENERAL_TOPIC_ID"
+    echo "Bienvenida publicada en topic General"
+    sleep 1
+  fi
 
   for app_key in "${APP_ORDER[@]}"; do
-    local display_name hashtag summary web_url download_url repo_url access_block repo_block thread_id intro_message
+    local display_name hashtag summary audience platforms web_url download_url repo_url access_block repo_block features_block stack_block thread_id intro_message
     thread_id=$(jq -r --arg k "$app_key" '.[$k].forumTopicId // empty' "$APPS_JSON")
 
     if [[ -z "$thread_id" || "$thread_id" == "null" ]]; then
@@ -146,6 +173,8 @@ post_intros() {
     display_name=$(jq -r --arg k "$app_key" '.[$k].displayName' "$APPS_JSON")
     hashtag=$(jq -r --arg k "$app_key" '.[$k].hashtag' "$APPS_JSON")
     summary=$(jq -r --arg k "$app_key" '.[$k].summary' "$APPS_JSON")
+    audience=$(jq -r --arg k "$app_key" '.[$k].audience // .[$k].summary' "$APPS_JSON")
+    platforms=$(jq -r --arg k "$app_key" '.[$k].platforms // "Web"' "$APPS_JSON")
     web_url=$(jq -r --arg k "$app_key" '.[$k].webUrl' "$APPS_JSON")
     download_url=$(jq -r --arg k "$app_key" '.[$k].downloadUrl' "$APPS_JSON")
     repo_url=$(jq -r --arg k "$app_key" '.[$k].repoUrl' "$APPS_JSON")
@@ -155,10 +184,16 @@ post_intros() {
     if [[ -n "$repo_url" && "$repo_url" != "null" ]]; then
       repo_block="🔗 Código: ${repo_url}"
     fi
+    features_block=$(build_features_block "$app_key")
+    stack_block=$(build_stack_block "$app_key")
 
     export DISPLAY_NAME="$display_name"
     export HASHTAG="$hashtag"
     export SUMMARY="$summary"
+    export AUDIENCE="$audience"
+    export FEATURES_BLOCK="$features_block"
+    export PLATFORMS="$platforms"
+    export STACK_BLOCK="$stack_block"
     export ACCESS_BLOCK="$access_block"
     export REPO_BLOCK="$repo_block"
 
@@ -167,7 +202,7 @@ post_intros() {
       exit 1
     fi
 
-    intro_message=$(envsubst '$DISPLAY_NAME $HASHTAG $SUMMARY $ACCESS_BLOCK $REPO_BLOCK' < "$INTRO_FILE")
+    intro_message=$(envsubst '$DISPLAY_NAME $HASHTAG $SUMMARY $AUDIENCE $FEATURES_BLOCK $PLATFORMS $STACK_BLOCK $ACCESS_BLOCK $REPO_BLOCK' < "$INTRO_FILE")
     intro_message=$(printf '%s' "$intro_message" | sed -e '${/^$/d;}')
     send_message "$intro_message" "$thread_id"
     echo "Intro publicada: ${app_key} (thread ${thread_id})"
@@ -180,14 +215,17 @@ case "$MODE" in
     create_topics
     ;;
   post)
-    post_intros
+    post_intros false
+    ;;
+  apps)
+    post_intros true
     ;;
   setup)
     create_topics
-    post_intros
+    post_intros false
     ;;
   *)
-    echo "Unknown MODE: ${MODE} (use setup | topics | post)" >&2
+    echo "Unknown MODE: ${MODE} (use setup | topics | post | apps)" >&2
     exit 1
     ;;
 esac

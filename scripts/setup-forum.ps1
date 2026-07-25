@@ -14,7 +14,7 @@ $IconRepo = Get-Utf8String 0xF0, 0x9F, 0x94, 0x97
 $ActionPath = if ($env:ACTION_PATH) { $env:ACTION_PATH } else { Split-Path -Parent $PSScriptRoot }
 $AppsJsonPath = Join-Path $ActionPath 'templates\apps.json'
 $WelcomePath = Join-Path $ActionPath 'templates\forum-welcome.txt'
-$IntroPath = Join-Path $ActionPath 'templates\channel-app-intro.txt'
+$IntroPath = Join-Path $ActionPath 'templates\forum-app-detail.txt'
 $AccessLocalPath = Join-Path $ActionPath 'templates\channel-access-local.txt'
 $EnvLocalPath = Join-Path $ActionPath '.env.local'
 
@@ -118,6 +118,52 @@ function Get-AccessBlock {
     return ($lines -join [Environment]::NewLine)
 }
 
+function Get-AppProperty {
+    param(
+        $App,
+        [string]$Name
+    )
+
+    $prop = $App.PSObject.Properties[$Name]
+    if ($null -eq $prop) {
+        return ''
+    }
+
+    return [string]$prop.Value
+}
+
+function Get-FeaturesBlock {
+    param($App)
+
+    $features = $App.PSObject.Properties['features']
+    if ($null -eq $features -or $null -eq $features.Value) {
+        return '• Ver resumen arriba'
+    }
+
+    $lines = @()
+    foreach ($feature in @($features.Value)) {
+        if ([string]::IsNullOrWhiteSpace([string]$feature)) { continue }
+        $lines += "• $feature"
+    }
+
+    if ($lines.Count -eq 0) {
+        return '• Ver resumen arriba'
+    }
+
+    return ($lines -join [Environment]::NewLine)
+}
+
+function Get-StackBlock {
+    param($App)
+
+    $stack = Get-AppProperty $App 'stack'
+    if ([string]::IsNullOrWhiteSpace($stack)) {
+        return ''
+    }
+
+    return "Stack: $stack"
+}
+
 function Get-ForumTopicId {
     param($App)
 
@@ -171,12 +217,17 @@ function New-ForumTopics {
 }
 
 function Send-ForumIntros {
-    param($AppsObject)
+    param(
+        $AppsObject,
+        [switch]$SkipWelcome
+    )
 
-    $welcome = (Get-Content $WelcomePath -Raw -Encoding UTF8).Trim()
-    Send-TelegramMessage -Text $welcome -ThreadId $GeneralTopicId
-    Write-Host 'Bienvenida publicada en topic General'
-    Start-Sleep -Seconds 1
+    if (-not $SkipWelcome) {
+        $welcome = (Get-Content $WelcomePath -Raw -Encoding UTF8).Trim()
+        Send-TelegramMessage -Text $welcome -ThreadId $GeneralTopicId
+        Write-Host 'Bienvenida publicada en topic General'
+        Start-Sleep -Seconds 1
+    }
 
     $introTemplate = Get-Content $IntroPath -Raw -Encoding UTF8
     foreach ($appKey in $AppOrder) {
@@ -189,10 +240,21 @@ function Send-ForumIntros {
 
         $accessBlock = Get-AccessBlock $app
         $repoBlock = if ($app.repoUrl) { "$IconRepo C$([char]0x00F3)digo: $($app.repoUrl)" } else { '' }
+        $featuresBlock = Get-FeaturesBlock $app
+        $platforms = Get-AppProperty $app 'platforms'
+        if ([string]::IsNullOrWhiteSpace($platforms)) { $platforms = 'Web' }
+        $stackBlock = Get-StackBlock $app
+        $audience = Get-AppProperty $app 'audience'
+        if ([string]::IsNullOrWhiteSpace($audience)) { $audience = $app.summary }
+
         $message = $introTemplate `
             -replace '\$\{DISPLAY_NAME\}', $app.displayName `
             -replace '\$\{HASHTAG\}', $app.hashtag `
             -replace '\$\{SUMMARY\}', $app.summary `
+            -replace '\$\{AUDIENCE\}', $audience `
+            -replace '\$\{FEATURES_BLOCK\}', $featuresBlock `
+            -replace '\$\{PLATFORMS\}', $platforms `
+            -replace '\$\{STACK_BLOCK\}', $stackBlock `
             -replace '\$\{ACCESS_BLOCK\}', $accessBlock `
             -replace '\$\{REPO_BLOCK\}', $repoBlock
 
@@ -211,12 +273,15 @@ switch ($Mode) {
     'post' {
         Send-ForumIntros $apps
     }
+    'apps' {
+        Send-ForumIntros $apps -SkipWelcome
+    }
     'setup' {
         New-ForumTopics $apps
         Send-ForumIntros $apps
     }
     default {
-        throw "Unknown MODE: $Mode (use setup | topics | post)"
+        throw "Unknown MODE: $Mode (use setup | topics | post | apps)"
     }
 }
 
