@@ -11,6 +11,8 @@ $IconWeb = Get-Utf8String 0xF0, 0x9F, 0x8C, 0x90
 $IconDownload = Get-Utf8String 0xF0, 0x9F, 0x93, 0xB2
 $IconRepo = Get-Utf8String 0xF0, 0x9F, 0x94, 0x97
 
+$IconApp = Get-Utf8String 0xF0, 0x9F, 0x93, 0xB1
+
 $ActionPath = if ($env:ACTION_PATH) { $env:ACTION_PATH } else { Split-Path -Parent $PSScriptRoot }
 $AppsJsonPath = Join-Path $ActionPath 'templates\apps.json'
 $WelcomePath = Join-Path $ActionPath 'templates\forum-welcome.txt'
@@ -216,6 +218,32 @@ function New-ForumTopics {
     Write-Host "apps.json actualizado con forumTopicId"
 }
 
+function Get-AppsCatalogBlock {
+    param($AppsObject)
+
+    $lines = @()
+    foreach ($appKey in $AppOrder) {
+        $app = $AppsObject.$appKey
+        $tagline = Get-AppProperty $app 'forumTagline'
+        if ([string]::IsNullOrWhiteSpace($tagline)) {
+            $tagline = ($app.summary -replace '\..*$', '').Trim()
+        }
+        $lines += "$IconApp $($app.displayName) - $tagline"
+    }
+
+    return ($lines -join [Environment]::NewLine)
+}
+
+function Send-ForumWelcome {
+    param($AppsObject)
+
+    $template = (Get-Content $WelcomePath -Raw -Encoding UTF8).Trim()
+    $catalog = Get-AppsCatalogBlock $AppsObject
+    $message = $template -replace '\$\{APPS_CATALOG_BLOCK\}', $catalog
+    Send-TelegramMessage -Text $message -ThreadId $GeneralTopicId
+    Write-Host 'Bienvenida marketing publicada en General'
+}
+
 function Send-ForumIntros {
     param(
         $AppsObject,
@@ -223,9 +251,7 @@ function Send-ForumIntros {
     )
 
     if (-not $SkipWelcome) {
-        $welcome = (Get-Content $WelcomePath -Raw -Encoding UTF8).Trim()
-        Send-TelegramMessage -Text $welcome -ThreadId $GeneralTopicId
-        Write-Host 'Bienvenida publicada en topic General'
+        Send-ForumWelcome $AppsObject
         Start-Sleep -Seconds 1
     }
 
@@ -276,12 +302,15 @@ switch ($Mode) {
     'apps' {
         Send-ForumIntros $apps -SkipWelcome
     }
+    'welcome' {
+        Send-ForumWelcome $apps
+    }
     'setup' {
         New-ForumTopics $apps
         Send-ForumIntros $apps
     }
     default {
-        throw "Unknown MODE: $Mode (use setup | topics | post | apps)"
+        throw "Unknown MODE: $Mode (use setup | topics | post | apps | welcome)"
     }
 }
 

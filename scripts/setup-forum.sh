@@ -150,14 +150,39 @@ build_stack_block() {
   fi
 }
 
+build_apps_catalog_block() {
+  local app_key tagline display_name lines=()
+  for app_key in "${APP_ORDER[@]}"; do
+    display_name=$(jq -r --arg k "$app_key" '.[$k].displayName' "$APPS_JSON")
+    tagline=$(jq -r --arg k "$app_key" '.[$k].forumTagline // empty' "$APPS_JSON")
+    if [[ -z "$tagline" || "$tagline" == "null" ]]; then
+      tagline=$(jq -r --arg k "$app_key" '.[$k].summary' "$APPS_JSON" | sed 's/\..*$//')
+    fi
+    lines+=("📱 ${display_name} — ${tagline}")
+  done
+  printf '%s\n' "${lines[@]}"
+}
+
+post_welcome() {
+  local template catalog message
+  if ! command -v envsubst >/dev/null 2>&1; then
+    echo "envsubst is required for welcome mode" >&2
+    exit 1
+  fi
+  template=$(cat "$WELCOME_FILE")
+  catalog=$(build_apps_catalog_block)
+  export APPS_CATALOG_BLOCK="$catalog"
+  message=$(envsubst '$APPS_CATALOG_BLOCK' < "$WELCOME_FILE")
+  message=$(printf '%s' "$message" | sed -e '${/^$/d;}')
+  send_message "$message" "$GENERAL_TOPIC_ID"
+  echo "Bienvenida marketing publicada en General"
+}
+
 post_intros() {
   local skip_welcome="${1:-false}"
-  local message
 
   if [[ "$skip_welcome" != "true" ]]; then
-    message=$(cat "$WELCOME_FILE" | sed -e '${/^$/d;}')
-    send_message "$message" "$GENERAL_TOPIC_ID"
-    echo "Bienvenida publicada en topic General"
+    post_welcome
     sleep 1
   fi
 
@@ -220,12 +245,15 @@ case "$MODE" in
   apps)
     post_intros true
     ;;
+  welcome)
+    post_welcome
+    ;;
   setup)
     create_topics
     post_intros false
     ;;
   *)
-    echo "Unknown MODE: ${MODE} (use setup | topics | post | apps)" >&2
+    echo "Unknown MODE: ${MODE} (use setup | topics | post | apps | welcome)" >&2
     exit 1
     ;;
 esac
