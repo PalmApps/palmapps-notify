@@ -24,7 +24,7 @@ Hub de **releases oficiales** para las apps del ecosistema (Costify, Reservas, V
 | Ejemplo workflow | `.github/workflows/example-web-notify.yml` |
 | Contexto Cursor | `.cursor/rules/palmapps-context.mdc` |
 
-**Consumo:** `uses: ypvaldivia88/palmapps-notify@v1`
+**Consumo:** `uses: PalmApps/palmapps-notify@v1`
 
 Requiere tag `v1` en GitHub tras primer push.
 
@@ -60,9 +60,9 @@ bash scripts/notify.sh
 
 ## Pendientes típicos
 
-1. Push repo a `github.com/ypvaldivia88/palmapps-notify` + tag `v1`
-2. Secrets en Costify (y demás repos)
-3. Commit workflow Costify con notify step
+1. Repo publicado en `github.com/PalmApps/palmapps-notify` + tag `v1`
+2. Organization secrets Telegram en `PalmApps` (`visibility: all`)
+3. Commit + push workflow Costify con `PalmApps/palmapps-notify@v1`
 4. Completar URLs en `apps.json` para viajando y carta-restaurante
 5. Añadir notify a deploy production Vercel (Reservas, etc.) con `template: web-deploy`
 

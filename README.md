@@ -18,14 +18,14 @@ Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo inv
 
 ```yaml
 - name: Notify PalmApps Telegram
-  uses: ypvaldivia88/palmapps-notify@v1
+  uses: PalmApps/palmapps-notify@v1
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
     app: costify
     version: ${{ steps.meta.outputs.version }}
     template: android-release
-    release_page_url: https://github.com/ypvaldivia88/Costify/releases/tag/v${{ steps.meta.outputs.version }}
+    release_page_url: https://github.com/PalmApps/Costify/releases/tag/v${{ steps.meta.outputs.version }}
     changelog: |
       Inicio con KPIs y alertas
       Brand v3 y navegación reagrupada
@@ -41,7 +41,7 @@ Centraliza plantillas, catálogo de apps y envío a Telegram. Cada repo solo inv
 
 ```yaml
 - name: Notify PalmApps Telegram
-  uses: ypvaldivia88/palmapps-notify@v1
+  uses: PalmApps/palmapps-notify@v1
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}

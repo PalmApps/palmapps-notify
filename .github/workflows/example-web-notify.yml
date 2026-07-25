@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify PalmApps Telegram
-        uses: ypvaldivia88/palmapps-notify@v1
+        uses: PalmApps/palmapps-notify@v1
         with:
           telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}

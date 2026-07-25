@@ -48,7 +48,7 @@ Reenviar mensaje del canal a @RawDataBot, o publicar en canal y llamar `getUpdat
 
 **Ruta local:** `D:\Devops\Repos\palmapps-notify`
 
-**GitHub (pendiente publicar):** `ypvaldivia88/palmapps-notify`
+**GitHub:** https://github.com/PalmApps/palmapps-notify
 
 GitHub Action **reutilizable** que centraliza:
 
@@ -70,7 +70,7 @@ GitHub Action **reutilizable** que centraliza:
 ### Uso en otros repos
 
 ```yaml
-- uses: ypvaldivia88/palmapps-notify@v1
+- uses: PalmApps/palmapps-notify@v1
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
@@ -116,13 +116,13 @@ GitHub Action **reutilizable** que centraliza:
 
 Archivo: `Costify/.github/workflows/android-release.yml`
 
-Tras `softprops/action-gh-release`, step **Notify PalmApps Telegram** usa `ypvaldivia88/palmapps-notify@v1` con `app: costify`, changelog, `release_page_url`, `commit`, etc.
+Tras `softprops/action-gh-release`, step **Notify PalmApps Telegram** usa `PalmApps/palmapps-notify@v1` con `app: costify`, changelog, `release_page_url`, `commit`, etc.
 
 **Pendiente en Costify:**
 
-1. Secrets `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHANNEL_ID` en repo GitHub Costify (u org).
-2. Commit + push del workflow si aún no está en `main`.
-3. Publicar `palmapps-notify` y tag `v1` antes del primer release que notifique.
+1. Organization secrets Telegram ya disponibles vía org `PalmApps`.
+2. Commit + push del workflow con `PalmApps/palmapps-notify@v1` si aún no está en `main`.
+3. Probar con un tag release `v*.*.*`.
 
 ---
 
@@ -132,17 +132,18 @@ Tras `softprops/action-gh-release`, step **Notify PalmApps Telegram** usa `ypval
 - [x] Bot `@PalmAppsNotify_bot` operativo
 - [x] Mensaje de prueba al canal OK
 - [x] Repo `palmapps-notify` creado localmente con commits
-- [ ] `gh repo create` + push `main` en `palmapps-notify`
-- [ ] `git tag v1` + `git push origin v1`
-- [ ] Secrets Telegram en GitHub (Costify + opcional org-wide)
-- [ ] Push workflow Costify con step notify
+- [x] `gh repo create` + push `main` en `palmapps-notify`
+- [x] `git tag v1` + `git push origin v1`
+- [x] Org `PalmApps` creada + repos transferidos
+- [x] Organization secrets Telegram (`visibility: all`)
+- [ ] Push workflow Costify con step notify (referencia `PalmApps/palmapps-notify@v1`)
 - [ ] Probar: tag release Costify o workflow ejemplo en `palmapps-notify`
 
 ### Comandos publicación repo
 
 ```powershell
 cd D:\Devops\Repos\palmapps-notify
-gh repo create ypvaldivia88/palmapps-notify --public --source=. --remote=origin --push
+gh repo create PalmApps/palmapps-notify --public --source=. --remote=origin --push
 git tag v1
 git push origin v1
 ```
