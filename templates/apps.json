@@ -19,7 +19,9 @@
     "webUrl": "https://costify-iota.vercel.app",
     "downloadUrl": "https://costify-iota.vercel.app/descarga",
     "repoUrl": "https://github.com/PalmApps/Costify",
-    "forumTopicId": 3
+    "forumTopicId": 3,
+    "promoPriority": true,
+    "promoHook": "Controla costos, stock y precios de tu negocio desde el móvil o la web."
   },
   "reservas": {
     "displayName": "Reservas",
@@ -40,7 +42,9 @@
     "webUrl": "https://reservas-taupe.vercel.app",
     "downloadUrl": "",
     "repoUrl": "https://github.com/PalmApps/reservas",
-    "forumTopicId": 4
+    "forumTopicId": 4,
+    "promoPriority": true,
+    "promoHook": "Tu salón recibe reservas online y las comparte por WhatsApp en minutos."
   },
   "viajando": {
     "displayName": "Viajando",
@@ -82,7 +86,9 @@
     "webUrl": "",
     "downloadUrl": "",
     "repoUrl": "https://github.com/PalmApps/carta-restaurante",
-    "forumTopicId": 6
+    "forumTopicId": 6,
+    "promoPriority": true,
+    "promoHook": "Menú digital en la WiFi de tu restaurante, sin depender de internet externo."
   },
   "rensoli-commerce": {
     "displayName": "Rendesigns",

@@ -1,0 +1,7 @@
+🌴 ${DISPLAY_NAME} — ${PROMO_HOOK}
+
+${ACCESS_LINE}
+
+👉 ${FORUM_LINK}
+
+${HASHTAG} #PalmApps

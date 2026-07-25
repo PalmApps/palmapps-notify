@@ -1,0 +1,5 @@
+${DISPLAY_NAME} — ${PROMO_HOOK}
+
+${ACCESS_LINE}
+
+Novedades aquí: ${FORUM_LINK}

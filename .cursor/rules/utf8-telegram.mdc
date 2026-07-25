@@ -1,0 +1,69 @@
+---
+description: UTF-8 obligatorio en textos Telegram, plantillas y scripts PowerShell/bash
+globs: "{scripts/**,templates/**,*.ps1,*.sh}"
+alwaysApply: false
+---
+
+# UTF-8 — Telegram y contenido en español
+
+## Problema
+
+PowerShell en Windows corrompe tildes y emojis si el texto vive **dentro del .ps1** o si `Invoke-RestMethod -Body` no va en UTF-8. Resultado: `producci�n`, `�Y"�`, em dash roto.
+
+## Reglas obligatorias
+
+### 1. Texto para usuarios → archivos `templates/*.txt`
+
+- Mensajes Telegram, promos, bienvenidas, historial: **solo en plantillas UTF-8**.
+- En `.ps1` / `.sh`: leer con `-Encoding UTF8` (PS) o asumir UTF-8 (bash).
+- **No** poner emojis, `—`, `ó`, `ñ` en strings inline de PowerShell.
+
+### 2. Emojis en PowerShell
+
+Usar bytes UTF-8, como en `post-channel-intros.ps1`:
+
+```powershell
+function Get-Utf8String { param([byte[]]$Bytes); [Text.Encoding]::UTF8.GetString($Bytes) }
+$IconApp = Get-Utf8String 0xF0, 0x9F, 0x93, 0xB1
+```
+
+O evitar emojis en scripts y dejarlos solo en `.txt`.
+
+### 3. Enviar a Telegram API
+
+**PowerShell — siempre:**
+
+```powershell
+$json = ($payload | ConvertTo-Json -Compress)
+$bytes = [System.Text.Encoding]::UTF8.GetBytes($json)
+Invoke-RestMethod -Uri $uri -Method Post `
+  -ContentType 'application/json; charset=utf-8' `
+  -Body $bytes
+```
+
+**Prohibido:** `-Body @{ chat_id = ...; text = $text }` sin UTF-8.
+
+**Bash — siempre:**
+
+```bash
+curl -sS -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  --data-binary "$payload"
+```
+
+Payload con `jq -n --arg text "$message" ...` (no `--data-urlencode` suelto para textos largos en español).
+
+### 4. Escribir archivos
+
+```powershell
+[System.IO.File]::WriteAllText($path, $content, [System.Text.UTF8Encoding]::new($false))
+```
+
+### 5. Antes de publicar
+
+- Revisar que el mensaje no contenga `�` ni secuencias `Ã`, `�Y"`.
+- Preferir probar con un mensaje corto antes de barridos masivos (`MODE=welcome`, una app).
+
+### 6. Separadores
+
+En scripts `.ps1`, usar `-` ASCII en lugar de `—` (em dash) al concatenar strings.

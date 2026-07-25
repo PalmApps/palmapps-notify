@@ -1,0 +1,55 @@
+{
+  "entries": [
+    {
+      "version": "1.0.21",
+      "date": "2026-07-24",
+      "title": "App móvil más cómoda en pantallas pequeñas",
+      "changes": [
+        "Tab bar y scroll respetan el área inferior del teléfono",
+        "Pantallas del menú Más con scroll correcto",
+        "Calculadora usable con el teclado abierto",
+        "Inicio con KPIs en 2 columnas",
+        "Badges en Productos y Almacenes"
+      ]
+    },
+    {
+      "version": "1.0.18",
+      "date": "2026-07-15",
+      "title": "Nueva pantalla de inicio e imagen de marca",
+      "changes": [
+        "Inicio con KPIs, alertas y acciones rápidas",
+        "Navegación reagrupada por áreas del negocio",
+        "Parámetros de costo en acordeón",
+        "Logo, iconos y splash actualizados (brand v3)",
+        "Demo con acceso más simple al probar"
+      ]
+    },
+    {
+      "version": "1.0.17",
+      "date": "2026-07-12",
+      "title": "Interfaz renovada estilo SaaS",
+      "changes": [
+        "UI v2 más clara en web y móvil",
+        "Logo e iconos adaptativos en Android"
+      ]
+    },
+    {
+      "version": "1.0.15",
+      "date": "2026-07-08",
+      "title": "Costos de personal y multi-área",
+      "changes": [
+        "Desglose de salarios en fichas de costo",
+        "Soporte multi-área en el negocio",
+        "Mejoras de calidad y estabilidad"
+      ]
+    },
+    {
+      "version": "1.0.14",
+      "date": "2026-07-07",
+      "title": "Participación salarial en costos",
+      "changes": [
+        "Distribución de salarios en el cálculo de productos"
+      ]
+    }
+  ]
+}

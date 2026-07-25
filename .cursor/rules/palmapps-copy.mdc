@@ -1,0 +1,33 @@
+---
+description: Copy y tono de mensajes PalmApps para usuarios no técnicos
+globs: "templates/**"
+alwaysApply: false
+---
+
+# Tono PalmApps — copy público
+
+## Vocabulario
+
+| Evitar (dev) | Usar (público) |
+|--------------|----------------|
+| release | novedad, actualización, nueva versión |
+| changelog | qué hay de nuevo, mejoras |
+| deploy | actualización en la web |
+| Software Development | software para negocios |
+
+## Estructura foro
+
+- **General:** marketing + catálogo de topics (anclado).
+- **Topic app:** ficha detallada (anclada) + historial de novedades + mensajes automáticos de CI.
+
+## Marketing
+
+- CTA: `https://t.me/palmapps`
+- Priorizar promos: **Costify**, **Reservas**, **Carta Restaurante**
+- Generar copy: `.\scripts\generate-promo.ps1` → `output/promos/`
+- Instagram / WhatsApp / X: plantillas `templates/social-promo-*.txt`
+
+## Marca Rendesigns
+
+- Nombre público: **Rendesigns** (no Daymel, Rensoli, Rensoli Commerce)
+- Key CI sin cambiar: `rensoli-commerce`

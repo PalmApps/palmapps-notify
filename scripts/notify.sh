@@ -63,7 +63,7 @@ if [[ -n "$CHANGELOG" ]]; then
     fi
   done)
 else
-  CHANGELOG="• Ver notas completas en el enlace de release"
+  CHANGELOG="• Ver detalles en el enlace de la version"
 fi
 
 DOWNLOAD_BLOCK=""
@@ -72,9 +72,9 @@ if [[ -n "$DOWNLOAD_URL" && "$DOWNLOAD_URL" != "null" ]]; then
 fi
 if [[ -n "$RELEASE_PAGE_URL" && "$RELEASE_PAGE_URL" != "null" ]]; then
   if [[ -n "$DOWNLOAD_BLOCK" ]]; then
-    DOWNLOAD_BLOCK="${DOWNLOAD_BLOCK}"$'\n'"Release: $RELEASE_PAGE_URL"
+    DOWNLOAD_BLOCK="${DOWNLOAD_BLOCK}"$'\n'"Mas info: $RELEASE_PAGE_URL"
   else
-    DOWNLOAD_BLOCK="Release: $RELEASE_PAGE_URL"
+    DOWNLOAD_BLOCK="Mas info: $RELEASE_PAGE_URL"
   fi
 fi
 if [[ -z "$DOWNLOAD_BLOCK" ]]; then

@@ -2,7 +2,7 @@
 
 ${HASHTAG}
 
-✨ Novedades
+✨ Qué hay de nuevo
 ${CHANGELOG}
 
 📥 Descarga

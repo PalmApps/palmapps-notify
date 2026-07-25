@@ -1,8 +1,8 @@
 🌴 PalmApps — bienvenido
 
-Hub oficial de apps del ecosistema PalmApps (Software Development).
+Hub oficial de apps del ecosistema PalmApps.
 
-Aquí publicamos releases reales: cada producto tiene su topic con ficha detallada, enlaces para probarla y changelog de cada versión.
+Aquí compartimos novedades reales: cada producto tiene su topic con ficha detallada, enlaces para probarla e historial de mejoras.
 
 📂 Nuestros topics
 
@@ -10,6 +10,6 @@ ${APPS_CATALOG_BLOCK}
 
 👆 En la lista, abre el topic con el nombre de la app que te interese. Dentro encontrarás la ficha completa (anclada).
 
-🔔 Activa las notificaciones del grupo para no perderte un release.
+🔔 Activa las notificaciones del grupo para enterarte de cada actualización.
 
-Desarrollo independiente · software útil · enlaces directos
+Software útil para negocios · enlaces directos · sin tecnicismos

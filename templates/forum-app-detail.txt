@@ -16,4 +16,4 @@ ${STACK_BLOCK}
 ${ACCESS_BLOCK}
 ${REPO_BLOCK}
 
-📣 En este topic publicamos releases, deploys y changelog de ${DISPLAY_NAME}.
+📣 En este topic publicamos novedades, mejoras y enlaces de ${DISPLAY_NAME}.

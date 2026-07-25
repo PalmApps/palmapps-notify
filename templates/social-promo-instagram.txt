@@ -1,0 +1,12 @@
+${DISPLAY_NAME} ${HASHTAG}
+
+${PROMO_HOOK}
+
+Prueba la app:
+${ACCESS_LINE}
+
+Novedades y actualizaciones en nuestro foro PalmApps:
+${FORUM_LINK}
+(Topic: ${DISPLAY_NAME})
+
+${CTA_LINE}

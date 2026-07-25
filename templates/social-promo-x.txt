@@ -1,0 +1,5 @@
+${DISPLAY_NAME} ${HASHTAG} — ${PROMO_HOOK}
+
+${ACCESS_LINE}
+
+Foro PalmApps: ${FORUM_LINK}

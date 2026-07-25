@@ -124,7 +124,29 @@ export ACTION_PATH="$(pwd)"
 bash scripts/setup-forum.sh
 ```
 
-Modos: `MODE=topics` (solo crear topics), `MODE=post` (solo publicar bienvenida + fichas).
+Modos: `MODE=topics` (solo crear topics), `MODE=post` (solo publicar bienvenida + fichas), `MODE=apps` (solo fichas), `MODE=welcome` (solo General).
+
+### Historial de novedades por topic
+
+Edita `templates/history/{app}.json` y publica:
+
+```powershell
+.\scripts\post-forum-history.ps1          # todas las apps
+$env:APP='costify'; .\scripts\post-forum-history.ps1   # una app
+```
+
+### Textos promocionales (redes sociales)
+
+Genera copys desde `apps.json` (prioridad: Costify, Reservas, Carta Restaurante):
+
+```powershell
+.\scripts\generate-promo.ps1
+# output/promos/costify-instagram.txt, costify-whatsapp.txt, ...
+$env:APP='reservas'; .\scripts\generate-promo.ps1
+$env:ALL='true'; .\scripts\generate-promo.ps1   # todas las apps
+```
+
+Plantillas: `templates/social-promo-*.txt` (instagram, whatsapp, x, generic).
 
 ### 3. CI
 
@@ -148,7 +170,9 @@ $env:TELEGRAM_CHANNEL_ID='@palmappschannel'
 | `templates/forum-welcome.txt` | Bienvenida al topic General |
 | `templates/forum-app-detail.txt` | Ficha detallada por app (foro) |
 | `templates/channel-app-intro.txt` | Ficha breve (canal legacy) |
-| `templates/channel-welcome.txt` | Bienvenida canal legacy |
+| `templates/forum-history-entry.txt` | Entrada del historial en un topic |
+| `templates/history/*.json` | Historial de novedades por app |
+| `templates/social-promo-*.txt` | Promo para Instagram, WhatsApp, X, genérico |
 
 Variables en plantillas de release: `$DISPLAY_NAME`, `$VERSION`, `$HASHTAG`, `$CHANGELOG`, `$DOWNLOAD_BLOCK`, `$WEB_URL`, `$EXTRA_BLOCK`.
 

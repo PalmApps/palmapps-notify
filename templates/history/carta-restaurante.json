@@ -1,0 +1,44 @@
+{
+  "entries": [
+    {
+      "version": "1.0.3",
+      "date": "2026-07-20",
+      "title": "Instalador guiado sin complicaciones",
+      "changes": [
+        "Carpeta offline lista para copiar al USB",
+        "Instalador guiado sin editar archivos técnicos",
+        "Detección automática de IP y WiFi",
+        "Script Verificar Carta para diagnóstico",
+        "Firewall configurado al iniciar"
+      ]
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-07-15",
+      "title": "Paquete offline para el restaurante",
+      "changes": [
+        "Instalador por USB sin internet en el local",
+        "Arranque con un solo ejecutable"
+      ]
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-07-15",
+      "title": "Carta offline con licencias",
+      "changes": [
+        "Funciona en red local del restaurante",
+        "Panel admin para gestionar el menú"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-07-15",
+      "title": "Primera carta digital Renacer",
+      "changes": [
+        "Carta pública en móvil y tablet",
+        "Diseño colonial Sancti Spíritus",
+        "SQLite local sin nube obligatoria"
+      ]
+    }
+  ]
+}

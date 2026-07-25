@@ -1,166 +1,101 @@
 ---
-description: Contexto PalmApps — Telegram, ecosistema de apps, palmapps-notify y estado del proyecto
+description: Contexto PalmApps — foro Telegram, ecosistema, palmapps-notify v2, marketing e historial
 alwaysApply: true
 ---
 
 # PalmApps — contexto para agentes
 
-## Marca y comunidad
+## Marca y Telegram (estado actual)
 
-- **PalmApps** = hub de releases oficiales de las apps del desarrollador (Yordan / ypvaldivia88).
-- **Canal Telegram (releases):** https://t.me/palmapps — username `@palmapps`
-- **Bot:** `@PalmAppsNotify_bot` (nombre en Telegram: PalmApps Bot)
-- **Redes sociales:** solo **promociones** con link al canal Telegram (no duplicar changelogs completos).
-- **No** usar grupo WhatsApp para releases automatizados; Telegram es el canal técnico oficial.
+| Destino | Username | Rol |
+|---------|----------|-----|
+| **Foro (principal)** | [@palmapps](https://t.me/palmapps) | Hub de novedades; un topic por app |
+| Canal legacy | [@palmappschannel](https://t.me/palmappschannel) | Solo redirección; no publicar releases |
+| Bot | `@PalmAppsNotify_bot` | Admin en foro: publicar + **Gestionar topics** |
 
-## Telegram — setup verificado
+- **Org GitHub:** [PalmApps](https://github.com/PalmApps)
+- **CTA único en redes:** `https://t.me/palmapps`
+- **Redes:** promo corta + link al foro (no changelogs largos duplicados)
+- **Lenguaje usuario:** decir **novedades / actualizaciones / qué hay de nuevo** — evitar *release*, *changelog*, *deploy* en copy público
 
-1. Bot creado con @BotFather → `getMe` responde `ok: true`.
-2. Bot es **admin** del canal `@palmapps` con permiso **Publicar mensajes**.
-3. `sendMessage` con `chat_id=@palmapps` funciona.
-4. **Seguridad:** si el token del bot se expuso en chat, revocar en BotFather y actualizar secrets.
+## Secrets (org `PalmApps`, visibility `all`)
 
-### Secrets (GitHub Actions — en cada repo CI o Organization secrets)
+| Secret | Valor |
+|--------|--------|
+| `TELEGRAM_BOT_TOKEN` | BotFather (nunca en código ni rules) |
+| `TELEGRAM_FORUM_CHAT_ID` | `@palmapps` |
+| `TELEGRAM_CHANNEL_ID` | `@palmappschannel` (opcional, legacy) |
 
-| Secret | Valor típico |
-|--------|----------------|
-| `TELEGRAM_BOT_TOKEN` | Token de BotFather (nunca en código) |
-| `TELEGRAM_CHANNEL_ID` | `@palmapps` |
+## Repo `palmapps-notify`
 
-### Probar manualmente (PowerShell)
+- **GitHub:** https://github.com/PalmApps/palmapps-notify
+- **Local:** `D:\Devops\Repos\palmapps-notify`
+- **Action:** `PalmApps/palmapps-notify@v2` (foro); `@v1` = solo canal legacy
+- **Catálogo:** `templates/apps.json` (`forumTopicId`, `promoPriority`, `promoHook`, `features`, …)
 
-```powershell
-$token = "..." # desde secret, no commitear
-Invoke-RestMethod -Uri "https://api.telegram.org/bot$token/getMe"
-Invoke-RestMethod -Uri "https://api.telegram.org/bot$token/sendMessage" -Method Post -Body @{
-  chat_id = "@palmapps"
-  text    = "prueba"
-}
-```
+### Scripts
 
-### Obtener ID numérico del canal (opcional)
+| Script | Uso |
+|--------|-----|
+| `scripts/notify.sh` | CI: novedades al topic (y canal si `notify_channel`) |
+| `scripts/setup-forum.ps1` | Topics + bienvenida + fichas (`MODE=setup\|topics\|post\|apps\|welcome`) |
+| `scripts/post-forum-history.ps1` | Historial desde `templates/history/{app}.json` |
+| `scripts/generate-promo.ps1` | Promos en `output/promos/` (prioridad: costify, reservas, carta-restaurante) |
+| `scripts/post-channel-intros.ps1` | Legacy canal |
 
-Reenviar mensaje del canal a @RawDataBot, o publicar en canal y llamar `getUpdates` (solo si `getMe` ya funciona).
+Ejecutar scripts desde **raíz del repo**: `.\scripts\setup-forum.ps1` (no desde `scripts\`).
 
----
+### Topics del foro (`forumTopicId`)
 
-## Este repo: `palmapps-notify`
+| app key | Nombre | thread |
+|---------|--------|--------|
+| costify | Costify | 3 |
+| reservas | Reservas | 4 |
+| viajando | Viajando | 5 |
+| carta-restaurante | Carta Restaurante | 6 |
+| rensoli-commerce | **Rendesigns** (displayName; key técnica sin cambiar) | 7 |
 
-**Ruta local:** `D:\Devops\Repos\palmapps-notify`
+General: mensaje **sin** `message_thread_id` (no usar thread id 1).
 
-**GitHub:** https://github.com/PalmApps/palmapps-notify
+## Apps y producción
 
-GitHub Action **reutilizable** que centraliza:
+| key | Nombre público | Web |
+|-----|----------------|-----|
+| costify | Costify | https://costify-iota.vercel.app (+ `/descarga` APK) |
+| reservas | Reservas | https://reservas-taupe.vercel.app |
+| viajando | Viajando | https://viajando-nine.vercel.app |
+| carta-restaurante | Carta Restaurante | LAN / sin URL pública |
+| rensoli-commerce | Rendesigns | https://rensoli-commerce.vercel.app |
 
-- Plantillas de mensaje PalmApps
-- Catálogo de apps (`templates/apps.json`)
-- Envío a Telegram (`scripts/notify.sh`)
+**Promo prioritaria:** costify, reservas, carta-restaurante (`promoPriority: true`).
 
-### Estructura
-
-| Path | Rol |
-|------|-----|
-| `action.yml` | Inputs de la action |
-| `scripts/notify.sh` | Build mensaje + `curl` Telegram API |
-| `templates/apps.json` | Apps, hashtags, URLs por defecto |
-| `templates/android-release.txt` | APK + web |
-| `templates/web-deploy.txt` | Solo deploy web |
-| `.github/workflows/example-web-notify.yml` | Ejemplo `workflow_dispatch` |
-
-### Uso en otros repos
+## CI en apps (ej. Costify)
 
 ```yaml
-- uses: PalmApps/palmapps-notify@v1
+- uses: PalmApps/palmapps-notify@v2
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-    telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-    app: costify          # ver apps.json
-    version: "1.0.18"
-    template: android-release  # o web-deploy
-    changelog: |
-      línea de cambio 1
-      línea de cambio 2
-    release_page_url: https://github.com/...
-    extra_lines: |
-      API: ...
-    commit: ${{ github.sha }}
+    telegram_forum_chat_id: ${{ secrets.TELEGRAM_FORUM_CHAT_ID }}
+    app: costify
+    version: ${{ steps.meta.outputs.version }}
+    template: android-release
 ```
 
-**Importante:** la action solo funciona tras `git push` + tag **`v1`** en este repo.
+Tag nuevo en action → semver (`v3`, …) y push del tag.
 
-### Apps en catálogo (`templates/apps.json`)
+## Convenciones agente
 
-| `app` key | Nombre | Web |
-|-----------|--------|-----|
-| `costify` | Costify | https://costify-iota.vercel.app (descarga: `/descarga`) |
-| `reservas` | Reservas | https://reservas-taupe.vercel.app |
-| `viajando` | Viajando | (completar URL en apps.json) |
-| `carta-restaurante` | Carta Restaurante | (completar URL en apps.json) |
-| `rensoli-commerce` | Rendesigns | https://rensoli-commerce.vercel.app |
+- No commitear `.env.local` ni tokens.
+- Textos Telegram → plantillas UTF-8; ver rule `utf8-telegram.mdc`.
+- Nueva app: `apps.json` + `templates/history/{app}.json` + topic en foro + workflow con `app:` key.
+- Costify APK: tag `v*.*.*` → `Costify/.github/workflows/android-release.yml`.
 
----
+## Ecosistema local
 
-## Ecosistema de apps (repos locales)
-
-| Repo | Ruta | Producción | Notas |
-|------|------|------------|-------|
-| Costify | `D:\Devops\Repos\Costify` | https://costify-iota.vercel.app | Monorepo pnpm; APK vía tag `v*.*.*` → `.github/workflows/android-release.yml` |
-| Reservas | `D:\Devops\Repos\reservas` | https://reservas-taupe.vercel.app | Next 15, MongoDB `nailsalon`, npm |
-| Viajando | `D:\Devops\Repos\viajando` | (Vercel) | Next 16 |
-| Carta restaurante | `D:\Devops\Repos\carta-restaurante` | (Vercel) | Next 16, SQLite |
-| Rendesigns | `D:\Devops\Repos\rensoli-commerce` | https://rensoli-commerce.vercel.app | Next 16, Stripe, Postgres |
-
----
-
-## Integración Costify (ya editada en local)
-
-Archivo: `Costify/.github/workflows/android-release.yml`
-
-Tras `softprops/action-gh-release`, step **Notify PalmApps Telegram** usa `PalmApps/palmapps-notify@v1` con `app: costify`, changelog, `release_page_url`, `commit`, etc.
-
-**Pendiente en Costify:**
-
-1. Organization secrets Telegram ya disponibles vía org `PalmApps`.
-2. Commit + push del workflow con `PalmApps/palmapps-notify@v1` si aún no está en `main`.
-3. Probar con un tag release `v*.*.*`.
-
----
-
-## Checklist de publicación (estado al crear este contexto)
-
-- [x] Canal `@palmapps` creado
-- [x] Bot `@PalmAppsNotify_bot` operativo
-- [x] Mensaje de prueba al canal OK
-- [x] Repo `palmapps-notify` creado localmente con commits
-- [x] `gh repo create` + push `main` en `palmapps-notify`
-- [x] `git tag v1` + `git push origin v1`
-- [x] Org `PalmApps` creada + repos transferidos
-- [x] Organization secrets Telegram (`visibility: all`)
-- [ ] Push workflow Costify con step notify (referencia `PalmApps/palmapps-notify@v1`)
-- [ ] Probar: tag release Costify o workflow ejemplo en `palmapps-notify`
-
-### Comandos publicación repo
-
-```powershell
-cd D:\Devops\Repos\palmapps-notify
-gh repo create PalmApps/palmapps-notify --public --source=. --remote=origin --push
-git tag v1
-git push origin v1
-```
-
----
-
-## Decisiones de arquitectura (conversación previa)
-
-- **Telegram** para releases automáticos; **redes** para promo + link `t.me/palmapps`.
-- **Repo central** `palmapps-notify` en lugar de duplicar `curl` en cada app.
-- **Organization secrets** recomendados cuando haya 3+ repos notificando.
-- **Vercel production deploy** → `template: web-deploy` (futuro: webhook Vercel → workflow).
-- **No** repo central tipo API Vercel por ahora (overkill para 4–5 apps).
-
-## Convenciones para agentes
-
-- No commitear tokens Telegram ni pegarlos en rules.
-- Nuevas apps: actualizar `templates/apps.json` + workflow del repo con `app:` key.
-- Cambios en la action: nuevo tag semver (`v2`) en `palmapps-notify`.
-- Mensajes en español; hashtags por app (`#Costify`, `#Reservas`, …).
+| Repo | Ruta |
+|------|------|
+| Costify | `D:\Devops\Repos\Costify` |
+| reservas | `D:\Devops\Repos\reservas` |
+| viajando | `D:\Devops\Repos\viajando` |
+| carta-restaurante | `D:\Devops\Repos\carta-restaurante` |
+| rensoli-commerce | `D:\Devops\Repos\rensoli-commerce` |

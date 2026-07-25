@@ -2,14 +2,14 @@
 
 ${HASHTAG}
 
-🚀 Actualización en producción
+🚀 Actualización en la web
 Versión: v${VERSION}
 
-✨ Cambios
+✨ Qué hay de nuevo
 ${CHANGELOG}
 
 🌐 Abrir: ${WEB_URL}
 
-🔄 Cómo verlo: recarga la página; no hay APK que instalar.
+🔄 Cómo verlo: recarga la página; no hace falta instalar nada.
 
 ${EXTRA_BLOCK}

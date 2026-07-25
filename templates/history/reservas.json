@@ -1,0 +1,34 @@
+{
+  "entries": [
+    {
+      "version": "2026-07",
+      "date": "2026-07",
+      "title": "Panel de pruebas y mejoras del admin",
+      "changes": [
+        "Panel de pruebas en administración de plataforma",
+        "Control del hero y encuadre desde el admin",
+        "Selector multi-servicio (peluquería y barbería)"
+      ]
+    },
+    {
+      "version": "2026-06",
+      "date": "2026-06",
+      "title": "Galería de trabajos y reservas con fotos",
+      "changes": [
+        "Subir fotos al completar reservas",
+        "Galería Nuestros Trabajos por salón",
+        "Aislamiento de galería por tenant"
+      ]
+    },
+    {
+      "version": "2026-05",
+      "date": "2026-05",
+      "title": "Agenda admin rediseñada para móvil",
+      "changes": [
+        "Calendario y tarjetas optimizados en móvil",
+        "Días especiales agrupados por mes",
+        "Mejoras en plantillas de sitio para salones"
+      ]
+    }
+  ]
+}

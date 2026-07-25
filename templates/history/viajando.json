@@ -1,0 +1,15 @@
+{
+  "entries": [
+    {
+      "version": "2026",
+      "date": "2026",
+      "title": "Plataforma en producción",
+      "changes": [
+        "Catálogo de excursiones con cupos",
+        "Calculadora de precios USD + CUP",
+        "Reservas con confirmación por WhatsApp",
+        "Flyers automáticos para compartir"
+      ]
+    }
+  ]
+}
