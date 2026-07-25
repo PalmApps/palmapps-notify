@@ -1,0 +1,31 @@
+# Ejemplo: notificar deploy web en producción (Vercel u otro CI)
+
+name: Notify PalmApps (ejemplo web)
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: costify | reservas | viajando | carta-restaurante
+        required: true
+        default: reservas
+      version:
+        description: Versión o SHA corto
+        required: true
+      changelog:
+        description: Cambios (una línea por ítem)
+        required: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify PalmApps Telegram
+        uses: ypvaldivia88/palmapps-notify@v1
+        with:
+          telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          telegram_channel_id: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          app: ${{ inputs.app }}
+          version: ${{ inputs.version }}
+          template: web-deploy
+          changelog: ${{ inputs.changelog }}
