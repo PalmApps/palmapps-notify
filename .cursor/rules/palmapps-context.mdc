@@ -54,8 +54,11 @@ Ejecutar scripts desde **raíz del repo**: `.\scripts\setup-forum.ps1` (no desde
 | viajando | Viajando | 5 |
 | carta-restaurante | Carta Restaurante | 6 |
 | rensoli-commerce | **Rendesigns** (displayName; key técnica sin cambiar) | 7 |
+| ofertas-cuba | OfertasCuba | *(pendiente: `setup-forum.ps1`)* |
 
 General: mensaje **sin** `message_thread_id` (no usar thread id 1).
+
+**Bot producto OfertasCuba:** distinto de `@PalmAppsNotify_bot` (busqueda, alertas, reenvios). Token: `TELEGRAM_OFERTAS_BOT_TOKEN`.
 
 ## Apps y producción
 
@@ -66,6 +69,7 @@ General: mensaje **sin** `message_thread_id` (no usar thread id 1).
 | viajando | Viajando | https://viajando-nine.vercel.app |
 | carta-restaurante | Carta Restaurante | LAN / sin URL pública |
 | rensoli-commerce | Rendesigns | https://rensoli-commerce.vercel.app |
+| ofertas-cuba | OfertasCuba | https://ofertascuba.vercel.app |
 
 **Promo prioritaria:** costify, reservas, carta-restaurante (`promoPriority: true`).
 
@@ -99,3 +103,4 @@ Tag nuevo en action → semver (`v3`, …) y push del tag.
 | viajando | `D:\Devops\Repos\viajando` |
 | carta-restaurante | `D:\Devops\Repos\carta-restaurante` |
 | rensoli-commerce | `D:\Devops\Repos\rensoli-commerce` |
+| ofertas-cuba | `D:\Devops\Repos\ofertas-cuba` |

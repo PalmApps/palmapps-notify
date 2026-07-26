@@ -12,7 +12,7 @@ Documento de contexto para agentes de IA. **Confidencial:** no incluir tokens; u
 
 ## Qué es PalmApps
 
-Hub de **novedades oficiales** del ecosistema (Costify, Reservas, Viajando, Carta Restaurante, Rendesigns).
+Hub de **novedades oficiales** del ecosistema (Costify, Reservas, Viajando, Carta Restaurante, Rendesigns, OfertasCuba).
 
 - Foro (principal): https://t.me/palmapps (`@palmapps`)
 - Canal legacy: https://t.me/palmappschannel (solo redirección)
@@ -53,6 +53,7 @@ Hub de **novedades oficiales** del ecosistema (Costify, Reservas, Viajando, Cart
 | `viajando` | Viajando | https://viajando-nine.vercel.app |
 | `carta-restaurante` | Carta Restaurante | LAN |
 | `rensoli-commerce` | **Rendesigns** | https://rensoli-commerce.vercel.app |
+| `ofertas-cuba` | **OfertasCuba** | https://ofertascuba.vercel.app |
 
 Promo prioritaria: costify, reservas, carta-restaurante.
 

@@ -109,5 +109,26 @@
     "downloadUrl": "",
     "repoUrl": "https://github.com/PalmApps/rensoli-commerce",
     "forumTopicId": 7
+  },
+  "ofertas-cuba": {
+    "displayName": "OfertasCuba",
+    "hashtag": "#OfertasCuba",
+    "summary": "Comparador comunitario de compra y venta en Cuba. Indexa ofertas de grupos publicos de Facebook y Telegram, normaliza precios en USD/EUR y filtra por provincia.",
+    "forumTagline": "Compara ofertas de compra y venta en Cuba antes de contactar al vendedor",
+    "audience": "Personas en Cuba (y familiares en el exterior) que compran o venden a traves de grupos de Facebook y WhatsApp/Telegram.",
+    "platforms": "Web PWA + bot de Telegram",
+    "stack": "Next.js 15, Neon Postgres, GitHub Actions (scraper FB + TG), El Toque API",
+    "features": [
+      "Busqueda y comparacion de ofertas por provincia",
+      "Precio original mas equivalente USD y EUR (El Toque)",
+      "Fuentes: grupos publicos de Facebook y canales/grupos de Telegram",
+      "Enlace al post original y contacto por WhatsApp si hay telefono",
+      "Bot Telegram: busqueda, alertas y reenvio de ofertas a la comunidad",
+      "Reportar ofertas inadecuadas"
+    ],
+    "webUrl": "https://ofertascuba.vercel.app",
+    "downloadUrl": "",
+    "repoUrl": "https://github.com/PalmApps/ofertas-cuba",
+    "promoHook": "Compara antes de escribir al vendedor."
   }
 }
