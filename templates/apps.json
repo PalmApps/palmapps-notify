@@ -25,26 +25,26 @@
   },
   "reservas": {
     "displayName": "Reservas",
-    "hashtag": "#Reservas",
-    "summary": "Plataforma de reservas online para salones y negocios de servicios. Página propia, agenda, clientes y panel admin listos para compartir por WhatsApp.",
-    "forumTagline": "Reservas online para salones y negocios de servicios",
-    "audience": "Salones de belleza, spas y negocios de servicios que quieren recibir reservas online sin depender de llamadas o papel.",
-    "platforms": "Web responsive (móvil y desktop)",
-    "stack": "Next.js 15, React 19, MongoDB Atlas, Tailwind CSS 4",
+    "hashtag": "#ReservaSalon #ReservasOnline",
+    "summary": "ReservaSalón — plataforma de reservas online para salones y negocios de servicios. Página propia, agenda, clientes, finanzas y panel admin instalable en el móvil.",
+    "forumTagline": "ReservaSalón: reservas online para salones y negocios de servicios",
+    "audience": "Salones de belleza, manicure, peluquería, barbería y spas que quieren recibir reservas online sin depender de llamadas o mensajes.",
+    "platforms": "Web responsive + PWA instalable (móvil y desktop)",
+    "stack": "Next.js 15, React 19, MongoDB Atlas, Tailwind CSS 4, Serwist PWA",
     "features": [
-      "Formulario de reserva con validación en tiempo real",
-      "Página pública lista para compartir por WhatsApp",
-      "Panel admin con login seguro y cambio de contraseña",
-      "Registro automático de clientes al reservar",
-      "Dashboard con estadísticas y gestión de citas",
-      "API REST con manejo de errores completo"
+      "Reservas online 24/7 con página propia para compartir por WhatsApp",
+      "Selector multi-servicio (peluquería, barbería, manicure y más)",
+      "Panel admin con calendario, clientes, finanzas y galería de trabajos",
+      "PWA instalable: admin y sitio del salón en el móvil",
+      "Calendario con caché offline para trabajar sin conexión",
+      "14 días de prueba gratis, sin tarjeta"
     ],
     "webUrl": "https://reservas-taupe.vercel.app",
     "downloadUrl": "",
     "repoUrl": "https://github.com/PalmApps/reservas",
     "forumTopicId": 4,
     "promoPriority": true,
-    "promoHook": "Tu salón recibe reservas online y las comparte por WhatsApp en minutos."
+    "promoHook": "ReservaSalón: tu salón recibe citas online 24/7 y las compartes por WhatsApp en minutos. 14 días gratis."
   },
   "viajando": {
     "displayName": "Viajando",

@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "period": "Julio 2026 (2)",
+      "title": "App instalable, suscripción y panel de plataforma",
+      "changes": [
+        "PWA instalable en móvil (admin y sitio del salón)",
+        "Periodo de gracia, códigos de activación y certificados",
+        "Panel de plataforma rediseñado (mobile-first)",
+        "Calendario admin con caché offline",
+        "Página de estado cuando el salón no está operativo",
+        "Marca ReservaSalón y favicon propios"
+      ]
+    },
+    {
       "period": "Julio 2026",
       "title": "Panel de pruebas y mejoras del admin",
       "changes": [
