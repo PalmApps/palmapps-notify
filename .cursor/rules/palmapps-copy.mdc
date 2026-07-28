@@ -17,15 +17,14 @@ alwaysApply: false
 
 ## Estructura foro
 
-- **General:** marketing + catálogo de topics (anclado).
-- **Topic app:** ficha detallada (anclada) + historial de novedades + mensajes automáticos de CI.
+- **General:** resumen de cada actualización + enlace al topic de la app (compartible en redes).
+- **Topic app:** ficha detallada (anclada) + historial de novedades + mensaje completo de CI.
 
 ## Marketing
 
 - CTA: `https://t.me/palmapps`
-- Priorizar promos: **Costify**, **Reservas**, **Carta Restaurante**
-- Generar copy: `.\scripts\generate-promo.ps1` → `output/promos/`
-- Instagram / WhatsApp / X: plantillas `templates/social-promo-*.txt`
+- Resumen para redes: mismo texto que topic General (`forum-general-update.txt`)
+- Generar copy manual: `.\scripts\generate-update-share.ps1` → `output/shares/`
 
 ## Marca Rendesigns
 

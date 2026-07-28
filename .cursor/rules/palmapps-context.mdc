@@ -30,7 +30,7 @@ alwaysApply: true
 
 - **GitHub:** https://github.com/PalmApps/palmapps-notify
 - **Local:** `D:\Devops\Repos\palmapps-notify`
-- **Action:** `PalmApps/palmapps-notify@v2` (foro); `@v1` = solo canal legacy
+- **Action:** `PalmApps/palmapps-notify@v3` (foro + resumen General); `@v2` / `@v1` legacy
 - **Catálogo:** `templates/apps.json` (`forumTopicId`, `promoPriority`, `promoHook`, `features`, …)
 
 ### Scripts
@@ -76,7 +76,7 @@ General: mensaje **sin** `message_thread_id` (no usar thread id 1).
 ## CI en apps (ej. Costify)
 
 ```yaml
-- uses: PalmApps/palmapps-notify@v2
+- uses: PalmApps/palmapps-notify@v3
   with:
     telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     telegram_forum_chat_id: ${{ secrets.TELEGRAM_FORUM_CHAT_ID }}

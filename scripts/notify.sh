@@ -20,8 +20,10 @@ CHANNEL_ID="${TELEGRAM_CHANNEL_ID:-}"
 FORUM_CHAT_ID="${TELEGRAM_FORUM_CHAT_ID:-}"
 NOTIFY_FORUM="${NOTIFY_FORUM:-true}"
 NOTIFY_CHANNEL="${NOTIFY_CHANNEL:-false}"
+NOTIFY_GENERAL="${NOTIFY_GENERAL:-true}"
 APP_KEY="${APP:?APP is required}"
 VERSION="${VERSION:?VERSION is required}"
+ORIGINAL_CHANGELOG="${CHANGELOG:-}"
 
 if ! command -v jq >/dev/null 2>&1; then
   echo "jq is required on the runner" >&2
@@ -165,4 +167,30 @@ fi
 if [[ "$sent_any" == false ]]; then
   echo "No notification sent. Configure TELEGRAM_FORUM_CHAT_ID (@palmapps) + forumTopicId, or TELEGRAM_CHANNEL_ID for legacy mode." >&2
   exit 1
+fi
+
+if [[ "$NOTIFY_GENERAL" != "false" && -n "$FORUM_CHAT_ID" ]]; then
+  GENERAL_MESSAGE=$(
+    CHANGELOG="$ORIGINAL_CHANGELOG" \
+    APP="$APP_KEY" \
+    VERSION="$VERSION" \
+    WEB_URL="$WEB_URL" \
+    ACTION_PATH="$ACTION_PATH" \
+    TELEGRAM_FORUM_CHAT_ID="$FORUM_CHAT_ID" \
+    FORUM_LINK="${FORUM_LINK:-https://t.me/palmapps}" \
+    bash "$ACTION_PATH/scripts/render-update-share.sh"
+  )
+
+  SHARE_DIR="$ACTION_PATH/output/shares"
+  mkdir -p "$SHARE_DIR"
+  SAFE_VERSION=$(printf '%s' "$VERSION" | tr '/:' '__')
+  SHARE_PATH="$SHARE_DIR/${APP_KEY}-${SAFE_VERSION}.txt"
+  printf '%s\n' "$GENERAL_MESSAGE" > "$SHARE_PATH"
+  echo "Share copy saved: $SHARE_PATH"
+
+  if send_telegram_message "$FORUM_CHAT_ID" "$GENERAL_MESSAGE"; then
+    echo "General summary sent to ${FORUM_CHAT_ID} (topic General)"
+  else
+    echo "General summary failed for ${FORUM_CHAT_ID}" >&2
+  fi
 fi

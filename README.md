@@ -271,6 +271,24 @@ Plantilla del post FB: `templates/facebook-page-release.txt`.
 
 **Imagen en el post:** por ahora el CI publica texto + link. Para subir el PNG promo (`*-feed.png`), genera la imagen en un step previo y pasa `FACEBOOK_IMAGE_PATH` (soporte en `publish-facebook.sh`); Stories/IG siguen manuales o en una fase 2.
 
+### Resumen en General + redes
+
+Cada notificación de CI publica **dos mensajes**:
+
+1. **Topic de la app** — detalle completo (`web-deploy` o `android-release`).
+2. **Topic General** — resumen corto con enlace al topic (`forum-general-update.txt`).
+
+El mismo texto del General se guarda en `output/shares/{app}-{version}.txt` y sirve para **WhatsApp Status**, **Facebook** e **Instagram**.
+
+```powershell
+$env:APP='reservas'
+$env:VERSION='abc1234'
+$env:CHANGELOG="Mejora 1`nMejora 2"
+.\scripts\generate-update-share.ps1
+```
+
+Desactivar General en CI: `notify_general: false` en la action.
+
 ### 3. CI
 
 Secret org `TELEGRAM_FORUM_CHAT_ID=@palmapps`. Publica tag **`v2`** tras push (`git tag v2 && git push origin v2`).
@@ -297,17 +315,18 @@ $env:TELEGRAM_CHANNEL_ID='@palmappschannel'
 | `templates/history/*.json` | Historial de novedades por app |
 | `templates/social-promo-*.txt` | Promo para Instagram, WhatsApp, X, Facebook Page, genérico |
 | `templates/promo-themes.json` | Colores por app para imágenes promo |
-| `templates/facebook-page-release.txt` | Post automatico en Facebook Page (CI) |
-| `scripts/publish-facebook.sh` | Publicar en Facebook via Graph API |
+| `templates/forum-general-update.txt` | Resumen en topic General + redes (WhatsApp, FB, IG) |
+| `scripts/render-update-share.sh` | Render del resumen compartible |
+| `scripts/generate-update-share.ps1` | Generar copy local en `output/shares/` |
 
 Variables en plantillas de release: `$DISPLAY_NAME`, `$VERSION`, `$HASHTAG`, `$CHANGELOG`, `$DOWNLOAD_BLOCK`, `$WEB_URL`, `$EXTRA_BLOCK`.
 
 ## Publicar la action
 
 ```bash
-git tag v2   # foro @palmapps (recomendado)
+git tag v3   # foro + resumen General compartible en redes
 git push origin main
-git push origin v2
+git push origin v3
 ```
 
 ## Desarrollo local

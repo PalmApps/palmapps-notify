@@ -24,8 +24,12 @@ inputs:
     description: 'Duplicar también en canal legacy (@palmappschannel)'
     required: false
     default: 'false'
+  notify_general:
+    description: 'Publicar resumen en topic General (compartible en redes)'
+    required: false
+    default: 'true'
   app:
-    description: 'App: costify | reservas | viajando | carta-restaurante | rensoli-commerce (Rendesigns)'
+    description: 'App: costify | reservas | viajando | carta-restaurante | rensoli-commerce | ofertas-cuba'
     required: true
   version:
     description: Versión del release (ej. 1.0.18)
@@ -87,6 +91,7 @@ runs:
         TELEGRAM_FORUM_CHAT_ID: ${{ inputs.telegram_forum_chat_id }}
         NOTIFY_FORUM: ${{ inputs.notify_forum }}
         NOTIFY_CHANNEL: ${{ inputs.notify_channel }}
+        NOTIFY_GENERAL: ${{ inputs.notify_general }}
         APP: ${{ inputs.app }}
         VERSION: ${{ inputs.version }}
         TEMPLATE: ${{ inputs.template }}

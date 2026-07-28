@@ -1,0 +1,11 @@
+🌴 PalmApps — nueva actualización
+
+📱 ${DISPLAY_NAME} ${HASHTAG}
+
+✨ Qué hay de nuevo
+${CHANGELOG_SUMMARY}
+
+👇 Más detalles en el topic de ${DISPLAY_NAME}:
+${TOPIC_LINK}
+
+${WEB_BLOCK}🔔 Todas las apps: ${FORUM_LINK}
