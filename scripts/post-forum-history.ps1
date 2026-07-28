@@ -27,7 +27,7 @@ if (-not $env:TELEGRAM_BOT_TOKEN) {
 $ForumChatId = if ($env:TELEGRAM_FORUM_CHAT_ID) { $env:TELEGRAM_FORUM_CHAT_ID } else { '@palmapps' }
 $AppFilter = $env:APP
 $Mode = if ($env:MODE) { $env:MODE } else { 'sync' }
-$AppOrder = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce')
+$AppOrder = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce', 'ofertas-cuba')
 
 function Resolve-ForumChatId {
     param([string]$ChatId)

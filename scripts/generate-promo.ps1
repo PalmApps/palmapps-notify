@@ -54,7 +54,7 @@ function Render-Promo {
 }
 
 $apps = Get-Content $AppsJsonPath -Raw -Encoding UTF8 | ConvertFrom-Json
-$allKeys = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce')
+$allKeys = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce', 'ofertas-cuba')
 
 if ($env:APP) {
     $targetKeys = @($env:APP)

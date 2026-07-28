@@ -1,134 +1,135 @@
 {
-  "costify": {
-    "displayName": "Costify",
-    "hashtag": "#Costify",
-    "summary": "Calculadora de costos, inventario y precios para micro y pequeñas empresas (MIPYME). Control de almacenes, fichas de costo, márgenes e impuestos, con sync en la nube y soporte offline.",
-    "forumTagline": "Costos, inventario y precios para MIPYME · web + APK",
-    "audience": "MIPYME y negocios privados en Cuba que necesitan costear productos, controlar stock y fijar precios con márgenes e impuestos.",
-    "platforms": "Web + APK Android (arm64)",
-    "stack": "Next.js 15, Expo/React Native, MongoDB Atlas, offline-first",
-    "features": [
-      "Stock multi-almacén, kardex, producción y alertas de mínimo",
-      "Fichas de costo, materias primas, márgenes e impuestos (TCP, MIPYME, CNA)",
-      "Gastos indirectos y fondo global distribuible por unidad o peso",
-      "Opera offline y sincroniza al reconectar",
-      "Multi-tenant: cada negocio con login y datos aislados",
-      "Respaldo manual export/import JSON",
-      "Panel super admin para altas de clientes"
-    ],
-    "webUrl": "https://costify-iota.vercel.app",
-    "downloadUrl": "https://costify-iota.vercel.app/descarga",
-    "repoUrl": "https://github.com/PalmApps/Costify",
-    "forumTopicId": 3,
-    "promoPriority": true,
-    "promoHook": "Controla costos, stock y precios de tu negocio desde el móvil o la web."
-  },
-  "reservas": {
-    "displayName": "Reservas",
-    "hashtag": "#ReservaSalon #ReservasOnline",
-    "summary": "ReservaSalón — plataforma de reservas online para salones y negocios de servicios. Página propia, agenda, clientes, finanzas y panel admin instalable en el móvil.",
-    "forumTagline": "ReservaSalón: reservas online para salones y negocios de servicios",
-    "audience": "Salones de belleza, manicure, peluquería, barbería y spas que quieren recibir reservas online sin depender de llamadas o mensajes.",
-    "platforms": "Web responsive + PWA instalable (móvil y desktop)",
-    "stack": "Next.js 15, React 19, MongoDB Atlas, Tailwind CSS 4, Serwist PWA",
-    "features": [
-      "Reservas online 24/7 con página propia para compartir por WhatsApp",
-      "Selector multi-servicio (peluquería, barbería, manicure y más)",
-      "Panel admin con calendario, clientes, finanzas y galería de trabajos",
-      "PWA instalable: admin y sitio del salón en el móvil",
-      "Calendario con caché offline para trabajar sin conexión",
-      "14 días de prueba gratis, sin tarjeta"
-    ],
-    "webUrl": "https://reservas-taupe.vercel.app",
-    "downloadUrl": "",
-    "repoUrl": "https://github.com/PalmApps/reservas",
-    "forumTopicId": 4,
-    "promoPriority": true,
-    "promoHook": "ReservaSalón: tu salón recibe citas online 24/7 y las compartes por WhatsApp en minutos. 14 días gratis."
-  },
-  "viajando": {
-    "displayName": "Viajando",
-    "hashtag": "#Viajando",
-    "summary": "Instantes Excursiones — catálogo de viajes y excursiones en Cuba, calculadora de precios, reservas, cupos y panel admin.",
-    "forumTagline": "Excursiones en Cuba: catálogo, precios, cupos y reservas",
-    "audience": "Agencias de excursiones y operadores turísticos en Cuba (marca: Instantes Excursiones).",
-    "platforms": "Web pública + panel admin",
-    "stack": "Next.js 16, MongoDB Atlas, Vercel Blob, OG flyers",
-    "features": [
-      "Catálogo de viajes con barra de cupos del bus",
-      "Calculadora dual USD + CUP por composición familiar",
-      "Reservas con confirmación por WhatsApp",
-      "Flyers automáticos para compartir (/api/og)",
-      "Enlaces de promotor (?ref=CODIGO)",
-      "Admin: CRUD viajes, reservas, promotores e imágenes"
-    ],
-    "webUrl": "https://viajando-nine.vercel.app",
-    "downloadUrl": "",
-    "repoUrl": "https://github.com/PalmApps/viajando",
-    "forumTopicId": 5
-  },
-  "carta-restaurante": {
-    "displayName": "Carta Restaurante",
-    "hashtag": "#CartaRestaurante",
-    "summary": "Carta digital para restaurantes con panel admin. Pensada para servirse en la red local del local (LAN); ideal para menú en móvil y tablet.",
-    "forumTagline": "Carta digital en la WiFi de tu restaurante (LAN)",
-    "audience": "Restaurantes y bares que quieren carta digital en la WiFi del local, sin depender de internet externo.",
-    "platforms": "Web LAN + paquete offline (.exe) para Windows",
-    "stack": "Next.js 16, SQLite + Drizzle, Tailwind CSS 4",
-    "features": [
-      "Carta pública responsive para móvil y tablet",
-      "Panel admin: categorías, platos, precios y disponibilidad",
-      "SQLite local — sin servicios cloud obligatorios",
-      "Servidor en 0.0.0.0 para la red del restaurante",
-      "Paquete offline con instalador para el cliente",
-      "Diseño adaptable (ej. Renacer, Sancti Spíritus)"
-    ],
-    "webUrl": "",
-    "downloadUrl": "",
-    "repoUrl": "https://github.com/PalmApps/carta-restaurante",
-    "forumTopicId": 6,
-    "promoPriority": true,
-    "promoHook": "Menú digital en la WiFi de tu restaurante, sin depender de internet externo."
-  },
-  "rensoli-commerce": {
-    "displayName": "Rendesigns",
-    "hashtag": "#Rendesigns",
-    "summary": "Tienda online Rendesigns: productos impresos en 3D, print-on-demand y servicios creativos. Catálogo, carrito y pago con Stripe.",
-    "forumTagline": "Tienda 3D, print-on-demand y pagos Stripe",
-    "audience": "Clientes de Rendesigns que compran impresiones 3D, productos personalizados y servicios creativos.",
-    "platforms": "Tienda web e-commerce",
-    "stack": "Next.js, Vercel, Stripe",
-    "features": [
-      "Catálogo de productos impresos en 3D y print-on-demand",
-      "Carrito de compras y checkout",
-      "Pagos con Stripe",
-      "Marca Rendesigns",
-      "Deploy en producción Vercel"
-    ],
-    "webUrl": "https://rensoli-commerce.vercel.app",
-    "downloadUrl": "",
-    "repoUrl": "https://github.com/PalmApps/rensoli-commerce",
-    "forumTopicId": 7
-  },
-  "ofertas-cuba": {
-    "displayName": "OfertasCuba",
-    "hashtag": "#OfertasCuba",
-    "summary": "Comparador comunitario de compra y venta en Cuba. Indexa ofertas de grupos publicos de Facebook y Telegram, normaliza precios en USD/EUR y filtra por provincia.",
-    "forumTagline": "Compara ofertas de compra y venta en Cuba antes de contactar al vendedor",
-    "audience": "Personas en Cuba (y familiares en el exterior) que compran o venden a traves de grupos de Facebook y WhatsApp/Telegram.",
-    "platforms": "Web PWA + bot de Telegram",
-    "stack": "Next.js 15, Neon Postgres, GitHub Actions (scraper FB + TG), El Toque API",
-    "features": [
-      "Busqueda y comparacion de ofertas por provincia",
-      "Precio original mas equivalente USD y EUR (El Toque)",
-      "Fuentes: grupos publicos de Facebook y canales/grupos de Telegram",
-      "Enlace al post original y contacto por WhatsApp si hay telefono",
-      "Bot Telegram: busqueda, alertas y reenvio de ofertas a la comunidad",
-      "Reportar ofertas inadecuadas"
-    ],
-    "webUrl": "https://ofertascuba.vercel.app",
-    "downloadUrl": "",
-    "repoUrl": "https://github.com/PalmApps/ofertas-cuba",
-    "promoHook": "Compara antes de escribir al vendedor."
-  }
+    "costify":  {
+                    "displayName":  "Costify",
+                    "hashtag":  "#Costify",
+                    "summary":  "Calculadora de costos, inventario y precios para micro y pequeñas empresas (MIPYME). Control de almacenes, fichas de costo, márgenes e impuestos, con sync en la nube y soporte offline.",
+                    "forumTagline":  "Costos, inventario y precios para MIPYME · web + APK",
+                    "audience":  "MIPYME y negocios privados en Cuba que necesitan costear productos, controlar stock y fijar precios con márgenes e impuestos.",
+                    "platforms":  "Web + APK Android (arm64)",
+                    "stack":  "Next.js 15, Expo/React Native, MongoDB Atlas, offline-first",
+                    "features":  [
+                                     "Stock multi-almacén, kardex, producción y alertas de mínimo",
+                                     "Fichas de costo, materias primas, márgenes e impuestos (TCP, MIPYME, CNA)",
+                                     "Gastos indirectos y fondo global distribuible por unidad o peso",
+                                     "Opera offline y sincroniza al reconectar",
+                                     "Multi-tenant: cada negocio con login y datos aislados",
+                                     "Respaldo manual export/import JSON",
+                                     "Panel super admin para altas de clientes"
+                                 ],
+                    "webUrl":  "https://costify-iota.vercel.app",
+                    "downloadUrl":  "https://costify-iota.vercel.app/descarga",
+                    "repoUrl":  "https://github.com/PalmApps/Costify",
+                    "forumTopicId":  3,
+                    "promoPriority":  true,
+                    "promoHook":  "Controla costos, stock y precios de tu negocio desde el móvil o la web."
+                },
+    "reservas":  {
+                     "displayName":  "Reservas",
+                     "hashtag":  "#ReservaSalon #ReservasOnline",
+                     "summary":  "ReservaSalón — plataforma de reservas online para salones y negocios de servicios. Página propia, agenda, clientes, finanzas y panel admin instalable en el móvil.",
+                     "forumTagline":  "ReservaSalón: reservas online para salones y negocios de servicios",
+                     "audience":  "Salones de belleza, manicure, peluquería, barbería y spas que quieren recibir reservas online sin depender de llamadas o mensajes.",
+                     "platforms":  "Web responsive + PWA instalable (móvil y desktop)",
+                     "stack":  "Next.js 15, React 19, MongoDB Atlas, Tailwind CSS 4, Serwist PWA",
+                     "features":  [
+                                      "Reservas online 24/7 con página propia para compartir por WhatsApp",
+                                      "Selector multi-servicio (peluquería, barbería, manicure y más)",
+                                      "Panel admin con calendario, clientes, finanzas y galería de trabajos",
+                                      "PWA instalable: admin y sitio del salón en el móvil",
+                                      "Calendario con caché offline para trabajar sin conexión",
+                                      "14 días de prueba gratis, sin tarjeta"
+                                  ],
+                     "webUrl":  "https://reservas-taupe.vercel.app",
+                     "downloadUrl":  "",
+                     "repoUrl":  "https://github.com/PalmApps/reservas",
+                     "forumTopicId":  4,
+                     "promoPriority":  true,
+                     "promoHook":  "ReservaSalón: tu salón recibe citas online 24/7 y las compartes por WhatsApp en minutos. 14 días gratis."
+                 },
+    "viajando":  {
+                     "displayName":  "Viajando",
+                     "hashtag":  "#Viajando",
+                     "summary":  "Instantes Excursiones — catálogo de viajes y excursiones en Cuba, calculadora de precios, reservas, cupos y panel admin.",
+                     "forumTagline":  "Excursiones en Cuba: catálogo, precios, cupos y reservas",
+                     "audience":  "Agencias de excursiones y operadores turísticos en Cuba (marca: Instantes Excursiones).",
+                     "platforms":  "Web pública + panel admin",
+                     "stack":  "Next.js 16, MongoDB Atlas, Vercel Blob, OG flyers",
+                     "features":  [
+                                      "Catálogo de viajes con barra de cupos del bus",
+                                      "Calculadora dual USD + CUP por composición familiar",
+                                      "Reservas con confirmación por WhatsApp",
+                                      "Flyers automáticos para compartir (/api/og)",
+                                      "Enlaces de promotor (?ref=CODIGO)",
+                                      "Admin: CRUD viajes, reservas, promotores e imágenes"
+                                  ],
+                     "webUrl":  "https://viajando-nine.vercel.app",
+                     "downloadUrl":  "",
+                     "repoUrl":  "https://github.com/PalmApps/viajando",
+                     "forumTopicId":  5
+                 },
+    "carta-restaurante":  {
+                              "displayName":  "Carta Restaurante",
+                              "hashtag":  "#CartaRestaurante",
+                              "summary":  "Carta digital para restaurantes con panel admin. Pensada para servirse en la red local del local (LAN); ideal para menú en móvil y tablet.",
+                              "forumTagline":  "Carta digital en la WiFi de tu restaurante (LAN)",
+                              "audience":  "Restaurantes y bares que quieren carta digital en la WiFi del local, sin depender de internet externo.",
+                              "platforms":  "Web LAN + paquete offline (.exe) para Windows",
+                              "stack":  "Next.js 16, SQLite + Drizzle, Tailwind CSS 4",
+                              "features":  [
+                                               "Carta pública responsive para móvil y tablet",
+                                               "Panel admin: categorías, platos, precios y disponibilidad",
+                                               "SQLite local — sin servicios cloud obligatorios",
+                                               "Servidor en 0.0.0.0 para la red del restaurante",
+                                               "Paquete offline con instalador para el cliente",
+                                               "Diseño adaptable (ej. Renacer, Sancti Spíritus)"
+                                           ],
+                              "webUrl":  "",
+                              "downloadUrl":  "",
+                              "repoUrl":  "https://github.com/PalmApps/carta-restaurante",
+                              "forumTopicId":  6,
+                              "promoPriority":  true,
+                              "promoHook":  "Menú digital en la WiFi de tu restaurante, sin depender de internet externo."
+                          },
+    "rensoli-commerce":  {
+                             "displayName":  "Rendesigns",
+                             "hashtag":  "#Rendesigns",
+                             "summary":  "Tienda online Rendesigns: productos impresos en 3D, print-on-demand y servicios creativos. Catálogo, carrito y pago con Stripe.",
+                             "forumTagline":  "Tienda 3D, print-on-demand y pagos Stripe",
+                             "audience":  "Clientes de Rendesigns que compran impresiones 3D, productos personalizados y servicios creativos.",
+                             "platforms":  "Tienda web e-commerce",
+                             "stack":  "Next.js, Vercel, Stripe",
+                             "features":  [
+                                              "Catálogo de productos impresos en 3D y print-on-demand",
+                                              "Carrito de compras y checkout",
+                                              "Pagos con Stripe",
+                                              "Marca Rendesigns",
+                                              "Deploy en producción Vercel"
+                                          ],
+                             "webUrl":  "https://rensoli-commerce.vercel.app",
+                             "downloadUrl":  "",
+                             "repoUrl":  "https://github.com/PalmApps/rensoli-commerce",
+                             "forumTopicId":  7
+                         },
+    "ofertas-cuba":  {
+                         "displayName":  "OfertasCuba",
+                         "hashtag":  "#OfertasCuba",
+                         "summary":  "Comparador comunitario de compra y venta en Cuba. Indexa ofertas de grupos publicos de Facebook y Telegram, normaliza precios en USD/EUR y filtra por provincia.",
+                         "forumTagline":  "Compara ofertas de compra y venta en Cuba antes de contactar al vendedor",
+                         "audience":  "Personas en Cuba (y familiares en el exterior) que compran o venden a traves de grupos de Facebook y WhatsApp/Telegram.",
+                         "platforms":  "Web PWA + bot de Telegram",
+                         "stack":  "Next.js 15, Neon Postgres, GitHub Actions (scraper FB + TG), El Toque API",
+                         "features":  [
+                                          "Busqueda y comparacion de ofertas por provincia",
+                                          "Precio original mas equivalente USD y EUR (El Toque)",
+                                          "Fuentes: grupos publicos de Facebook y canales/grupos de Telegram",
+                                          "Enlace al post original y contacto por WhatsApp si hay telefono",
+                                          "Bot Telegram: busqueda, alertas y reenvio de ofertas a la comunidad",
+                                          "Reportar ofertas inadecuadas"
+                                      ],
+                         "webUrl":  "https://ofertascuba.vercel.app",
+                         "downloadUrl":  "",
+                         "repoUrl":  "https://github.com/PalmApps/ofertas-cuba",
+                         "promoHook":  "Compara antes de escribir al vendedor.",
+                         "forumTopicId":  173
+                     }
 }

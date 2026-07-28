@@ -34,7 +34,7 @@ if (-not $env:TELEGRAM_BOT_TOKEN) {
 
 $ForumChatId = if ($env:TELEGRAM_FORUM_CHAT_ID) { $env:TELEGRAM_FORUM_CHAT_ID } else { '@palmapps' }
 $Mode = if ($env:MODE) { $env:MODE } else { 'setup' }
-$AppOrder = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce')
+$AppOrder = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce', 'ofertas-cuba')
 $GeneralTopicId = 0
 
 function Invoke-TelegramApi {
