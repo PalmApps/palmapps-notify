@@ -34,6 +34,7 @@ if (-not $env:TELEGRAM_BOT_TOKEN) {
 
 $ForumChatId = if ($env:TELEGRAM_FORUM_CHAT_ID) { $env:TELEGRAM_FORUM_CHAT_ID } else { '@palmapps' }
 $Mode = if ($env:MODE) { $env:MODE } else { 'setup' }
+$AppFilter = $env:APP
 $AppOrder = @('costify', 'reservas', 'viajando', 'carta-restaurante', 'rensoli-commerce', 'ofertas-cuba')
 $GeneralTopicId = 0
 
@@ -256,7 +257,8 @@ function Send-ForumIntros {
     }
 
     $introTemplate = Get-Content $IntroPath -Raw -Encoding UTF8
-    foreach ($appKey in $AppOrder) {
+    $targets = if ($AppFilter) { @($AppFilter) } else { $AppOrder }
+    foreach ($appKey in $targets) {
         $app = $AppsObject.$appKey
         $topicId = Get-ForumTopicId $app
         if (-not $topicId) {

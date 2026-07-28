@@ -18,5 +18,9 @@
     "rensoli-commerce":  {
                              "topicId":  7,
                              "historyMessageId":  64
-                         }
+                         },
+    "ofertas-cuba":  {
+                         "topicId":  173,
+                         "historyMessageId":  180
+                     }
 }

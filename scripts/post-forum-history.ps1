@@ -219,7 +219,10 @@ foreach ($appKey in $targets) {
 
     $message = Build-HistoryMessage -App $app -Entries $entries -EntryTemplate $entryTemplate -HeaderTemplate $headerTemplate
 
-    $stored = $messageIds.$appKey
+    $stored = $null
+    if ($null -ne $messageIds.PSObject.Properties[$appKey]) {
+        $stored = $messageIds.$appKey
+    }
     $existingId = $null
     if ($null -ne $stored -and $null -ne $stored.PSObject.Properties['historyMessageId']) {
         $rawId = $stored.historyMessageId
@@ -245,7 +248,7 @@ foreach ($appKey in $targets) {
     }
 
     $newId = Send-TelegramMessage -Text $message -ThreadId $topicId
-    if (-not $messageIds.$appKey) {
+    if ($null -eq $messageIds.PSObject.Properties[$appKey]) {
         $messageIds | Add-Member -NotePropertyName $appKey -NotePropertyValue ([pscustomobject]@{ topicId = $topicId; historyMessageId = $newId }) -Force
     }
     else {

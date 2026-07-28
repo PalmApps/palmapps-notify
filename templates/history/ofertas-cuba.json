@@ -1,13 +1,22 @@
 {
   "entries": [
     {
+      "period": "Julio 2026",
+      "title": "Topic PalmApps y notificaciones automaticas",
+      "changes": [
+        "Topic oficial en el foro @palmapps",
+        "CI publica novedades al deployar en main",
+        "Ficha de producto y historial en el topic"
+      ]
+    },
+    {
       "version": "0.1.0",
       "date": "2026-07-25",
       "title": "Fase 0: proyecto y arquitectura",
       "changes": [
-        "Monorepo privado con web, bot y scrapers (Facebook + Telegram)",
+        "Monorepo con web, bot y scrapers (Facebook + Telegram)",
         "Plan tecnico y datos semilla para grupos y keywords",
-        "Integracion en catalogo PalmApps (foro pendiente de topic)"
+        "Web MVP en ofertascuba.vercel.app"
       ]
     }
   ]
